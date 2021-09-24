@@ -1,0 +1,28 @@
+.containder {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu {
+    display: block;
+    border: 5px;
+    border-color:darkgrey;
+}
+
+.graphs {
+    display: block;
+    border: 5px;
+    border-color: brown;
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
