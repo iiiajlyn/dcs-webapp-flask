@@ -1,28 +1,126 @@
-.containder {
-    width: 1200px;
-    margin: 0 auto;
+body {
+    font-family: 'Lato', 'Open Sans', 'Raleway', 'Roboto', sans-serif;
 }
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 1% auto;
+    display: flex;
+    padding-right: 24px;
+}
+
+.sidebar {
+    min-width: 320px;
+}
+
+.site__ident {
+    display: flex;
+    align-items: center;
+    background-color: #486e91;
+}
+
+.logo {
+    display: block;
+    margin: 40px 20px 40px 30px;
+}
+
+.site__title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.site__name {
+    display: block;
+    margin: 0px 0px;
+    color: #eaebec;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.site__description {
+    display: block;
+    margin: 0px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+.general {
+    background-color: #253340;
+    min-height: 75px;
+    margin: 0px;
+}
+
+.general__text {
+    position: absolute;
+    margin: 0px auto auto 30px;
+    line-height: 75px;
+    height: 75px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.menu__icon {
+    background-color: #46c1fa;
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0px;
+    position: relative;
+    top: 20px;
+    left: 300px;
+}
+
+.menu__img {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+}
+
+
+
+
+/* VISUALIZATION BLOCK */
 
 .content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
+
 
 .menu {
     display: block;
-    border: 5px;
-    border-color:darkgrey;
 }
 
 .graphs {
-    display: block;
-    border: 5px;
-    border-color: brown;
+    margin-left: 30px;
+    min-height: calc(95vh - 75px);
 }
 
 footer {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
+    height: 75px;
+
+}
+
+
+.copyright {
+    margin: 10px auto;
 }
