@@ -31,64 +31,94 @@
                         <p class="menu__item__text">General</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                            <li class="submenu__subitem submenu__font">
-                                <img src="img/icons/a-10a-icon_buy_active.png" alt="" class="tech__icon">
-                                <p class="submenu__subitem__text">Common Dashboard</p>
-                            </li>
+                            <a href="#" class="menu__link">
+                                <li class="submenu__subitem submenu__font">
+                                    <img src="img/icons/a-10a-icon_buy_active.png" alt="common dashboard icon" class="tech__icon">
+                                    <p class="submenu__subitem__text">Common Dashboard</p>
 
-                            <li class="submenu__subitem submenu__font">
-                                <img src="img/icons/f-14-icon_buy_active.png" alt="" class="tech__icon">
-                                <p class="submenu__subitem__text">User`s statistics</p>
-                            </li>
+                                </li>
+                            </a>
+                            <a href="#" class="menu__link">
+                                <li class="submenu__subitem submenu__font">
+                                    <img src="img/icons/f-14-icon_buy_active.png" alt="" class="tech__icon">
+                                    <p class="submenu__subitem__text">User`s statistics</p>
+                                </li>
+                            </a>
                         </ul>
                     </div>
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
                         <p class="menu__item__text">Helicopters</p>
-                        <p class="control__menu">&or;</p>
-                        <ul class="submenu">
-                            <li class="submenu__subitem submenu__font">
-                                <!--                                <img src="img/icons/a-10a-icon_buy_active.png" alt="" class="tech__icon">-->
-                                <p class="submenu__subitem__text">Common Dashboard</p>
-                            </li>
-
-                            <li class="submenu__subitem submenu__font">
-                                <!--                                <img src="img/icons/f-14-icon_buy_active.png" alt="" class="tech__icon">-->
-                                <p class="submenu__subitem__text">User`s statistics</p>
-                            </li>
-                        </ul>
+                        <p class="control__menu">+</p>
                     </div>
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
                         <p class="menu__item__text">Jets</p>
-                        <p class="control__menu">&or;</p>
+                        <p class="control__menu">+</p>
                     </div>
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
                         <p class="menu__item__text">Trainer</p>
-                        <p class="control__menu">&or;</p>
+                        <p class="control__menu">+</p>
                     </div>
                 </li>
 
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
                         <p class="menu__item__text">WWII</p>
-                        <p class="control__menu">&or;</p>
+                        <p class="control__menu">+</p>
                     </div>
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
                         <p class="menu__item__text">Blog</p>
-                        <p class="control__menu">&or;</p>
+                        <p class="control__menu">+</p>
                     </div>
 
                 </li>
             </ul>
         </sidebar>
 
+        <nav role="navigation">
+            <div class="menuToggle">
+
+                <input type="checkbox" />
+
+                <span class="burger"></span>
+                <span class="burger"></span>
+                <span class="burger"></span>
+
+                <ul class="mobile-menu">
+                    <ul class="nav__list">
+                        <li>
+                            <input id="group-1" type="checkbox" hidden />
+                            <label for="group-1"><span class="control-menu">&or;</span> First level</label>
+                            <ul class="group-list">
+                                <li><a href="/">1st level item</a></li>
+                                <li><a href="#">1st level item</a></li>
+                                <li><a href="#">1st level item</a></li>
+                            </ul>
+                        </li>
+                        <a href="#">
+                            <li>About</li>
+                        </a>
+                        <a href="#">
+                            <li>Info</li>
+                        </a>
+                        <a href="#">
+                            <li>Contact</li>
+                        </a>
+                        <a href="https://erikterwan.com/" target="_blank">
+                            <li>Show me more</li>
+                        </a>
+                    </ul>
+                </ul>
+
+            </div>
+        </nav>
         <content>
             <h1>Common Dashboard</h1>
             <div class="graphs">
@@ -137,6 +167,11 @@
             </footer>
         </content>
     </container>
+
+
+
+
+
 </body>
 
 </html>
