@@ -18,7 +18,7 @@ container {
 }
 
 sidebar {
-    min-width: 320px;
+    min-width: 280px;
     min-height: var(--max-height);
     background-color: #253340;
 }
@@ -36,9 +36,7 @@ header {
 
 .site-title {
     display: flex;
-    margin-top: 25px;
     flex-direction: column;
-    width: 100%;
 }
 
 .site-name {
@@ -58,7 +56,6 @@ header {
     font-style: normal;
     letter-spacing: normal;
     text-align: left;
-
 }
 
 .sidebar-icon {
@@ -70,8 +67,7 @@ header {
     border-radius: 50%;
     margin: 0px;
     position: relative;
-    top: -35px;
-    left: 185px;
+    left: 65px;
 }
 
 .sidebar-icon__img {
@@ -80,8 +76,13 @@ header {
     right: 6px;
 }
 
-menu {
+.menu ul {
+    list-style: none;
+}
+
+.menu {
     padding: 0px;
+    position: relative;
 }
 
 .menu__item {
@@ -90,6 +91,14 @@ menu {
     margin: 0px;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.menu__item:hover .submenu {
+    left: 100%;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0px);
 }
 
 .menu__font:hover {
@@ -125,11 +134,18 @@ menu {
     text-align: left;
 }
 
-submenu {
-    display: block;
+.submenu {
+    min-width: 200px;
+    position: absolute;
+    left: 0%;
+    top: 0;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.2s;
+    transform: translateX(50px);
     background-color: #486e91;
-    padding-bottom: 10px;
-    box-sizing: border-box;
+    padding: 10px 0px 10px 10px;
 }
 
 .submenu__subitem__text {
@@ -140,8 +156,6 @@ submenu {
 .submenu__subitem {
     display: flex;
     box-sizing: border-box;
-    padding: 10px 0px 0px 40px;
-
 }
 
 .submenu__font {
