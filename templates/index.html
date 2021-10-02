@@ -172,39 +172,113 @@
                     </div>
                 </totals>
                 <h2>Number of users files</h2>
-
-                <div class="main-graph">
-                    <script>
-                        var options = {
-                            chart: {
-                                type: 'bar'
-                            },
-                            series: [{
-                                name: 'sales',
-                                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
-                            }],
-                            xaxis: {
-                                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                <div class="main-graph graph-background">
+                    <div class="apex-script">
+                        <script>
+                            var options = {
+                                chart: {
+                                    type: 'bar'
+                                },
+                                series: [{
+                                    name: 'sales',
+                                    data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+                                }],
+                                xaxis: {
+                                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                                }
                             }
-                        }
 
-                        var chart = new ApexCharts(document.querySelector(".main-graph"), options);
+                            var chart = new ApexCharts(document.querySelector(".main-graph"), options);
 
-                        chart.render();
+                            chart.render();
 
-                    </script>
+                        </script>
+                    </div>
                 </div>
                 <div class="detail">
                     <div class="detail__block file-types">
                         <h3>Number of users files</h3>
-                        <div class="file-types__graph"></div>
+                        <div class="file-types__graph graph-background">
+                            <script>
+                                var options = {
+                                    chart: {
+                                        type: 'bar',
+                                        horizontal: true,
+                                    },
+                                    series: [{
+                                        name: 'sales',
+                                        data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+                                    }],
+                                    xaxis: {
+                                        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                                    },
+                                    plotOptions: {
+                                        bar: {
+                                            horizontal: true
+                                        }
+                                    }
+                                }
+                                var chart = new ApexCharts(document.querySelector(".file-types__graph"), options);
+
+                                chart.render();
+
+                            </script>
+                        </div>
                     </div>
                     <div class="detail__block top">
                         <h3>Top users</h3>
-                        <div class="top__list"></div>
+                        <div class="top__list graph-background">
+                            <div class="table-row table-row__header">
+                                <div class="table-row__name">User</div>
+                                <div class="table-row__downloads">Downloads</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-row__name">Name</div>
+                                <div class="table-row__downloads">125 K</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <noindex class="download-dataframe">
+                <a href="https://disk.yandex.ru/d/_iMUiKk1cM-Rcw" rel="nofollow" class="download-dataframe__button">Download dataframe</a>
+            </noindex>
             <footer>
                 <div class="copyright">
                     <script>
