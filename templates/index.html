@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans&family=Raleway:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <title>Document</title>
 </head>
 
@@ -115,17 +116,13 @@
             </ul>
         </sidebar>
 
-        <content style="background: linear-gradient(to bottom, rgba(205, 205, 205, 0.5) 0%, rgba(205, 205, 205, 0.5) 100%), url('img/bkg/default-bkg.jpg');background-size:cover;">
-
+        <content style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%), url('img/bkg/default-bkg.jpg');background-size:cover;">
             <nav role="navigation">
                 <div class="menuToggle">
-
                     <input type="checkbox" />
-
                     <span class="burger"></span>
                     <span class="burger"></span>
                     <span class="burger"></span>
-
                     <ul class="mobile-menu">
                         <ul class="nav__list">
                             <li>
@@ -156,7 +153,57 @@
             </nav>
             <h1>Common Dashboard</h1>
             <div class="graphs">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas exercitationem, ipsa consequatur at nesciunt assumenda minus consectetur, ratione a aspernatur corporis quasi provident magnam perspiciatis, et sint? Atque voluptates molestiae cumque culpa vitae quaerat dolore magni doloremque earum fugiat ut nesciunt, pariatur maxime provident exercitationem, reprehenderit odit. Voluptate harum necessitatibus aut blanditiis labore ea? Blanditiis aliquid ipsam amet ex nihil ducimus obcaecati, fugiat sequi laborum dolorem vel mollitia qui accusantium, eos, nam! Libero non atque, blanditiis animi perferendis temporibus repudiandae nam excepturi, et assumenda rem quod! Quisquam assumenda quia quasi aliquam rem deserunt, explicabo officiis ea mollitia, quae temporibus, iste.</p>
+                <totals>
+                    <div class="total total_files">
+                        <total__name>Total files</total__name>
+                        <total__indicator>14 000</total__indicator>
+                    </div>
+                    <div class="total total_downloads">
+                        <total__name>Total downloads</total__name>
+                        <total__indicator>13 M</total__indicator>
+                    </div>
+                    <div class="total total_users">
+                        <total__name>Total users</total__name>
+                        <total__indicator>1300</total__indicator>
+                    </div>
+                    <div class="total updated">
+                        <total__name>Updated date</total__name>
+                        <total__indicator>2021-10-01</total__indicator>
+                    </div>
+                </totals>
+                <h2>Number of users files</h2>
+
+                <div class="main-graph">
+                    <script>
+                        var options = {
+                            chart: {
+                                type: 'bar'
+                            },
+                            series: [{
+                                name: 'sales',
+                                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+                            }],
+                            xaxis: {
+                                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                            }
+                        }
+
+                        var chart = new ApexCharts(document.querySelector(".main-graph"), options);
+
+                        chart.render();
+
+                    </script>
+                </div>
+                <div class="detail">
+                    <div class="detail__block file-types">
+                        <h3>Number of users files</h3>
+                        <div class="file-types__graph"></div>
+                    </div>
+                    <div class="detail__block top">
+                        <h3>Top users</h3>
+                        <div class="top__list"></div>
+                    </div>
+                </div>
             </div>
             <footer>
                 <div class="copyright">
