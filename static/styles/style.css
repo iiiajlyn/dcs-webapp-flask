@@ -62,26 +62,6 @@ sidebar__header {
     text-align: left;
 }
 
-.sidebar-icon {
-    /*    FIXME: Remove display: none;*/
-    display: none;
-    background-color: #46c1fa;
-    width: 38px;
-    height: 38px;
-    line-height: 38px;
-    text-align: center;
-    border-radius: 50%;
-    margin: 0px;
-    position: relative;
-    left: 65px;
-}
-
-.sidebar-icon__img {
-    position: absolute;
-    top: 8px;
-    right: 6px;
-}
-
 .menu ul {
     list-style: none;
 }
@@ -239,7 +219,7 @@ sidebar__header {
     height: 4px;
     margin-bottom: 5px;
     position: relative;
-    background: var(--menu-color);
+    background: white;
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
@@ -263,7 +243,7 @@ sidebar__header {
 .menuToggle input:checked ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
-    background: var(--menu-color);
+    background: tomato;
 }
 
 /*
