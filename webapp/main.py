@@ -1,5 +1,8 @@
-from app import app
+from app import app, db
+from blog.blueprint import posts
 import view
+
+app.register_blueprint(posts, url_prefix='/blog')
 
 def main():
     app.run(debug=True)
