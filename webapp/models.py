@@ -1,9 +1,9 @@
 '''Models for database.'''
 from datetime import datetime
 
-from app import db
+from webapp import db
 
-from services.common_services import slugify
+from webapp.services.common_services import slugify
 
 
 class PostComments(db.Model):
