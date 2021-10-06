@@ -6,17 +6,46 @@ from app import db
 from services.common_services import slugify
 
 
-class Post(db.Model):
-    '''Post table.'''
+class PostComments(db.Model):
+    '''Comments table.'''
+    __table_name__ = 'post_comments'
+    __table_args__ = {
+        'schema': 'blog',
+        'extend_existing': True
+    }
+    id = db.Column(db.Integer, primary_key=True)
+    comment_post_id = db.Column(db.Integer, db.ForeignKey('blog.posts.id'))
+    comment_author = db.Column(db.String(255))
+    comment_date = db.Column(db.DateTime, default=datetime.now())
+    comment_content = db.Column(db.Text)
+    comment_parent = db.Column(db.Integer)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return f'<Comment id: {self.id}, Post id: {self.comment_post_id}'
+
+class Posts(db.Model):
+    '''Posts table.'''
+    __table_name__ = 'posts'
+    __table_args__ = {
+        'schema': 'blog',
+        'extend_existing': True
+        }
     id = db.Column(db.Integer, primary_key=True)
     post_title = db.Column(db.String(255))
     slug = db.Column(db.String(255), unique=True)
-    post_title = db.Column(db.String(255))
     description = db.Column(db.Text)
     post_cut = db.Column(db.Text)
     post_content = db.Column(db.Text)
     post_date = db.Column(db.DateTime, default=datetime.now())
+    # comment_post_id = db.relationship(
+    #     'PostComments',
+        # secondary=PostComments,
+        # backref='post_id',
+        # lazy='dynamic'
+    # )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,18 +59,10 @@ class Post(db.Model):
         if self.post_title:
             self.slug = slugify(self.post_title)
 
-
-class Comments(db.Model):
-    '''Comments table.'''
+class MetaMenu(db.Model):
+    __table_name__ = 'meta_menu'
+    __table_args__ = {
+        'schema': 'blog',
+        'extend_existing': True
+        }
     id = db.Column(db.Integer, primary_key=True)
-    comment_post_id = db.Column(db.Integer)
-    comment_author = db.Column(db.String(255))
-    comment_date = db.Column(db.DateTime, default=datetime.now())
-    comment_content = db.Column(db.Text)
-    comment_parent = db.Column(db.Integer)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def __repr__(self):
-        return f'<Comment id: {self.id}, Post id: {self.comment_post_id}'

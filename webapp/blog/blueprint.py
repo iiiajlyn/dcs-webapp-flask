@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from models import Post
+from models import Posts
 
 
 posts = Blueprint('posts', __name__, template_folder='templates')
@@ -7,9 +7,10 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 @posts.route('/')
 def index():
     # TODO: Request only post_cut
-    cuts = Post.query.all()
+    cuts = Posts.query.all()
     return render_template('blog/index.html', posts=cuts)
 
 @posts.route('/<slug>')
 def post_detail(slug):
-    post = Post.query.filter(Post.slug==slug).first()
+    post = Posts.query.filter(Posts.slug==slug).first()
+    return render_template('blog/post_detail.html', post=post)
