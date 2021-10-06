@@ -131,3 +131,4 @@ dmypy.json
 # Project file
 activate
 dump/
+migrations/

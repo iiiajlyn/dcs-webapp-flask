@@ -2,6 +2,7 @@ from flask import Flask, render_template
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from config import Configuration
 
 db = SQLAlchemy()
@@ -24,7 +25,7 @@ def create_app():
         return render_template('404.html'), 404
 
     # Import a module / component using its blueprint handler variable (mod_auth)
-    from webapp.controllers import webapp
+    from webapp.view import webapp
     from webapp.blueprints.blogapp.blueprint import posts
 
 
@@ -36,5 +37,7 @@ def create_app():
     # This will create the database file using SQLAlchemy
     with app.app_context():
         db.create_all()
+
+    migrate = Migrate(app, db)
 
     return app
