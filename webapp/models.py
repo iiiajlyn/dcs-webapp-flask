@@ -59,10 +59,46 @@ class Posts(db.Model):
         if self.post_title:
             self.slug = slugify(self.post_title)
 
-class MetaMenu(db.Model):
-    __table_name__ = 'meta_menu'
+class UnitTypes(db.Model):
+    __table_name__ = 'unit_types'
     __table_args__ = {
-        'schema': 'blog',
-        'extend_existing': True
+        'schema': 'dw',
+        'extend_existing': False
         }
     id = db.Column(db.Integer, primary_key=True)
+    unit_type_name = db.Column(db.String(255))
+    unit = db.relationship('Units')
+
+    def __repr__(self):
+        return (f'<UnitTypes.id: {self.id}, '
+                f'{self.unit_type_name=}>')
+
+class Developers(db.Model):
+    __table_name__ = 'developers'
+    __table_args__ = {
+        'schema': 'dw',
+        'extend_existing': False
+        }
+    id = db.Column(db.Integer, primary_key=True)
+    developer_name = db.Column(db.String(255))
+    unit = db.relationship('Units')
+
+    def __repr__(self):
+        return (f'<Developer id: {self.id}, '
+                f'Developer name: {self.developer_name}>')
+
+class Units(db.Model):
+    __table_name__ = 'units'
+    __table_args__ = {
+        'schema': 'dw',
+        'extend_existing': False
+        }
+    id = db.Column(db.Integer, primary_key=True)
+    unit_name = db.Column(db.String(255))
+    developer_id = db.Column(db.Integer, db.ForeignKey('dw.developers.id'))
+    unit_type_id = db.Column(db.Integer, db.ForeignKey('dw.unit_types.id'))
+    release_date = db.Column(db.Date)
+    adding_date = db.Column(db.Date)
+
+    def __repr__(self):
+        return f'<{self.id=}, {self.unit_name=}>'

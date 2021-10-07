@@ -3,6 +3,7 @@ from flask import Flask, render_template
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
 from config import Configuration
 
 db = SQLAlchemy()
@@ -19,14 +20,14 @@ def create_app():
     # by modules and controllers
     db.init_app(app)
 
-    # Sample HTTP error handling
+    # HTTP error handling
     @app.errorhandler(404)
     def not_found(error):
         return render_template('404.html'), 404
 
     # Import a module / component using its blueprint handler variable (mod_auth)
     from webapp.view import webapp
-    from webapp.blueprints.blogapp.blueprint import posts
+    from webapp.blueprints.blogapp.view import posts
 
 
     # Register blueprint(s)

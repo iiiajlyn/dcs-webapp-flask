@@ -337,7 +337,7 @@ sidebar__header {
 
 .nav__list input[type=checkbox]:checked + label + ul {
     /* reset the height when checkbox is checked */
-    max-height: 100vh;
+    max-height: 100%;
 }
 
 /**

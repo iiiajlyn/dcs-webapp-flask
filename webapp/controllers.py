@@ -1,10 +1,12 @@
 from flask import render_template, Blueprint, request
+from webapp.services.get_menu import get_menu_titles
+
 from webapp import db
-from webapp.models import Posts, PostComments
-# flash, g, session, redirect, url_for
+from webapp.models import Developers, Units, UnitTypes
 
-webapp = Blueprint('webapp', __name__, url_prefix='/')
 
-@webapp.route('/')
-def index():
-    return render_template('index.html')
+def menu_dict():
+    menu_titles = Units.query.join(
+        UnitTypes, Units.unit_type_id==UnitTypes.id
+    ).add_columns(Units.unit_name, UnitTypes.unit_type_name).all()
+    return get_menu_titles(menu_titles)

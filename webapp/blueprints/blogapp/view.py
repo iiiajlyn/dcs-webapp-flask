@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from webapp.models import Posts
 
 
-posts = Blueprint('posts', __name__, url_prefix='/blog', template_folder='templates')
+posts = Blueprint('posts', __name__, url_prefix='/blog/', template_folder='templates')
 
 @posts.route('/')
 def index():
