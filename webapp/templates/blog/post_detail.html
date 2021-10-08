@@ -9,5 +9,5 @@
 {% endblock %}
 
 {% block content %}
-  {{ post.post_content }}
+  {{ post.post_content | safe }}
 {% endblock %}

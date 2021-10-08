@@ -85,49 +85,19 @@
                     <div class="detail__block top">
                         <h3>Top users</h3>
                         <div class="top__list graph-background">
-                            <div class="table-row table-row__header">
-                                <div class="table-row__name">User</div>
-                                <div class="table-row__downloads">Downloads</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-row__name">Name</div>
-                                <div class="table-row__downloads">125 K</div>
+                            <div class="div-table">
+                                <div class="table-row table-row__header">
+                                    <div class="table-row__name">User</div>
+                                    <div class="table-row__files">Files</div>
+                                    <div class="table-row__downloads">Downloads</div>
+                                </div>
+                                {% for row in top_user %}
+                                    <div class="table-row">
+                                        <div class="table-col table-row__name">{{ row.name }}</div>
+                                        <div class="table-col table-row__files">{{ row.files }}</div>
+                                        <div class="table-col table-row__downloads">{{ row.downloads }}</div>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

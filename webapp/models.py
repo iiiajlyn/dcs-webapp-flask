@@ -67,7 +67,7 @@ class UnitTypes(db.Model):
         }
     id = db.Column(db.Integer, primary_key=True)
     unit_type_name = db.Column(db.String(255))
-    unit = db.relationship('Units')
+    unit_type = db.relationship('Units')
 
     def __repr__(self):
         return (f'<UnitTypes.id: {self.id}, '
@@ -81,7 +81,7 @@ class Developers(db.Model):
         }
     id = db.Column(db.Integer, primary_key=True)
     developer_name = db.Column(db.String(255))
-    unit = db.relationship('Units')
+    developer = db.relationship('Units')
 
     def __repr__(self):
         return (f'<Developer id: {self.id}, '
@@ -99,6 +99,51 @@ class Units(db.Model):
     unit_type_id = db.Column(db.Integer, db.ForeignKey('dw.unit_types.id'))
     release_date = db.Column(db.Date)
     adding_date = db.Column(db.Date)
+    unit = db.relationship('FilesStats')
 
     def __repr__(self):
         return f'<{self.id=}, {self.unit_name=}>'
+
+class FileTypes(db.Model):
+    __table_name__ = 'file_types'
+    __table_args__ = {
+        'schema': 'dw',
+        'extend_existing': False
+        }
+    id = db.Column(db.Integer, primary_key=True)
+    file_type_name = db.Column(db.String(255))
+    file_type = db.relationship('FilesStats')
+
+    def __repr__(self):
+        return f'<{self.id=}, {self.file_type_name=}>'
+
+class Users(db.Model):
+    __table_name__ = 'users'
+    __table_args__ = {
+        'schema': 'dw',
+        'extend_existing': False
+        }
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255))
+    user = db.relationship('FilesStats')
+
+    def __repr__(self):
+        return f'<{self.id=}, {self.username=}>'
+
+class FilesStats(db.Model):
+    __table_name__ = 'files_stats'
+    __table_args__ = {
+        'schema': 'dw',
+        'extend_existing': False
+        }
+    file_id = db.Column(db.Integer, primary_key=True)
+    file_type_id = db.Column(db.Integer, db.ForeignKey('dw.file_types.id'))
+    unit_id = db.Column(db.Integer, db.ForeignKey('dw.units.id'))
+    downloaded = db.Column(db.Integer)
+    user_id = db.Column(db.Integer , db.ForeignKey('dw.users.id'))
+    publishing_date = db.Column(db.Date)
+    updated_date = db.Column(db.Date)
+
+    def __repr__(self):
+        return (f'<{self.file_id=}, {self.unit_id=}, {self.user_id=}, '
+                f'{self.downloaded=}, {self.updated_date=}>')

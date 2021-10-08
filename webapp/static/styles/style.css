@@ -487,18 +487,6 @@ h3 {
     max-width: 280px;
 }
 
-.table-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    border-bottom: 1px solid black;
-
-}
-
-.table-row__name {
-    margin-right: 50px;
-}
-
 .table-row__header {
     font-size: 18px;
     font-weight: 700;
@@ -506,13 +494,47 @@ h3 {
     font-style: normal;
     letter-spacing: 0.14px;
     margin-bottom: 5px;
-
 }
 
 .top__list {
     padding: 10px;
 }
 
+.div-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.table-row__name {
+    width: 140px;
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+}
+
+.table-row__files {
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+.table-row__downloads {
+    padding-right: 10px;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    text-align: right;
+}
 
 .download-dataframe {
     display: block;
@@ -533,6 +555,18 @@ h3 {
     border: 2px solid white;
 }
 
+.posts-list {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.posts-line {
+    border-bottom: 1px solid var(--dcs-yellow);
+    padding: 0px 10px 5px 10px;
+}
+
 footer {
     display: flex;
     flex-direction: column;
@@ -544,6 +578,7 @@ footer {
 .copyright {
     margin: 10px auto;
 }
+
 
 @media only screen and (max-width: 1024px) {
     sidebar {
