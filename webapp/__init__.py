@@ -29,7 +29,6 @@ def create_app():
     from webapp.view import webapp
     from webapp.blueprints.blogapp.view import posts
 
-
     # Register blueprint(s)
     app.register_blueprint(webapp)
     app.register_blueprint(posts)

@@ -21,12 +21,15 @@
 <body>
     <container>
         <sidebar>
-            <sidebar__header>
-                <img src="{{ url_for('static', filename='img/ma5ta-avatar.png') }}" alt="Ma5ta avatar" class="logo">
+        <sidebar__header>
+        <a href="{{ url_for('webapp.index') }}">
+            <img src="{{ url_for('static', filename='img/ma5ta-avatar.png') }}" alt="Ma5ta avatar" class="logo"></a>
+            <a href="{{ url_for('webapp.index') }}">
                 <div class="site-title">
                     <p class="site-name">Ma5ta.ru</p>
                     <p class="site-description">Description</p>
                 </div>
+            </a>
             </sidebar__header>
             <ul class="menu">
                 <li class="menu__item">
@@ -52,11 +55,11 @@
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
-                        <p class="menu__item__text">Helicopters</p>
+                        <p class="menu__item__text">Jets</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                            {% for subitem in menu.Helicopter %}
-                            <a href="/" class="menu__link">
+                            {% for subitem in menu.Jet %}
+                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                     <p class="submenu__subitem__text">{{ subitem.text }}</p>
@@ -68,11 +71,11 @@
                 </li>
                 <li class="menu__item">
                     <div class="menu__item__title menu__font">
-                        <p class="menu__item__text">Jets</p>
+                        <p class="menu__item__text">Helicopters</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                            {% for subitem in menu.Jet %}
-                            <a href="/" class="menu__link">
+                            {% for subitem in menu.Helicopter %}
+                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                     <p class="submenu__subitem__text">{{ subitem.text }}</p>
@@ -88,7 +91,7 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Trainer %}
-                            <a href="/" class="menu__link">
+                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                     <p class="submenu__subitem__text">{{ subitem.text }}</p>
@@ -104,7 +107,7 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.WWII %}
-                            <a href="/" class="menu__link">
+                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                     <p class="submenu__subitem__text">{{ subitem.text }}</p>
@@ -114,7 +117,7 @@
                         </ul>
                     </div>
                 </li>
-                <a href="#">
+                <a href="{{ url_for('posts.index') }}">
                     <li class="menu__item">
                         <div class="menu__item__title menu__font">
                             <p class="menu__item__text">Blog</p>
@@ -124,7 +127,7 @@
             </ul>
         </sidebar>
 
-        <content style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%), url('{{ url_for('static', filename='img/bkg/default-bkg.jpg') }}');background-size:cover;">
+        <content style="background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%), url('{{ url_for('static', filename=bkg) }}');background-size:cover;">
             <nav role="navigation">
                 <div class="menuToggle">
                     <input type="checkbox" />
@@ -146,7 +149,9 @@
                                 <label for="group-2"><span class="control-menu">&or;</span>Jets</label>
                                 <ul class="group-list">
                                     {% for subitem in menu.Jet %}
-                                        <li><a href="#">{{ subitem.text }}</a></li>
+                                        <li>
+                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -155,7 +160,9 @@
                                 <label for="group-3"><span class="control-menu">&or;</span>Helicopter</label>
                                 <ul class="group-list">
                                     {% for subitem in menu.Helicopter %}
-                                        <li><a href="#">{{ subitem.text }}</a></li>
+                                        <li>
+                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -164,7 +171,9 @@
                                 <label for="group-4"><span class="control-menu">&or;</span>Trainer</label>
                                 <ul class="group-list">
                                     {% for subitem in menu.Trainer %}
-                                        <li><a href="#">{{ subitem.text }}</a></li>
+                                        <li>
+                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -173,7 +182,9 @@
                                 <label for="group-5"><span class="control-menu">&or;</span>WWII</label>
                                 <ul class="group-list">
                                     {% for subitem in menu.WWII %}
-                                        <li><a href="/">{{ subitem.text }}</a></li>
+                                        <li>
+                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -191,7 +202,6 @@
                 {% endblock %}
             </h1>
             {% block content %}
-
             {% endblock %}
             <footer>
                 <div class="copyright">
