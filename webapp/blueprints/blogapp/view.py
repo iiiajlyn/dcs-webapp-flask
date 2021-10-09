@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from webapp.controllers import menu_dict, unit_stats, page_background
+from webapp.controllers import menu_dict, page_background
 from webapp.models import Posts
 
 

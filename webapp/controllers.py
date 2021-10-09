@@ -13,7 +13,7 @@ from webapp.services.get_menu import get_menu_titles
 from webapp.services.get_page_background import get_background
 from webapp.services.get_top_users_statistics import get_top_users
 from webapp.services.get_units_statistics import get_units_stats
-
+from webapp.services.get_page_stats import UnitStats
 
 def menu_dict():
     menu_titles = Units.query.join(
@@ -24,19 +24,56 @@ def menu_dict():
 def page_background(slug):
     return get_background(slug)
 
-def unit_stats(slug):
-    result = {
-        'unit_title': slug_item[slug],
-        'mani_graph': get_units_stats(slug)
-    }
-    return result
+class StatsController:
 
-def filetypes_numbers(slug):
-    return get_filetypes_num(slug)
+    def __init__(self, slug):
+        self.unit_title = slug_item[slug]
+        self.unit_id  = Units.query.where(
+            Units.unit_name == self.unit_title).first().id
+        self.unit_stats = UnitStats(self.unit_id)
 
-def top_users(slug):
-    try:
-        result = db.session.execute(get_top_users_script, {'_unit': slug_item[slug]})
-    except KeyError:
-        return 404
-    return get_top_users(result)
+    def unit_statistics(self):
+        total_files = FilesStats.query.where(
+            FilesStats.unit_id == self.unit_id).count()
+
+        total_downloads = db.session.query(db.func.sum(
+            FilesStats.downloaded)).where(
+                FilesStats.unit_id == self.unit_id).first()
+        total_downloads = self.unit_stats.get_total_downloads(total_downloads)
+
+        total_users = db.session.query(db.func.count(
+            db.func.distinct(FilesStats.user_id))).where(
+                FilesStats.unit_id == self.unit_id).first()[0]
+
+        last_upload_date = db.session.query(db.func.max(
+            FilesStats.publishing_date)).where(
+                FilesStats.unit_id == self.unit_id).first()[0]
+
+        result = {
+            'unit_title': self.unit_title,
+            'total_files': total_files,
+            'total_downloads': total_downloads,
+            'total_users': total_users,
+            'last_upload_date': last_upload_date,
+            'main_graph': get_units_stats(self.unit_id)
+        }
+        return result
+
+    def filetypes_numbers(self):
+        file_types = db.session.query.where(
+                FilesStats.unit_id == self.unit_id).all()
+        print(file_types)
+        return get_filetypes_num(self.unit_title)
+
+    def top_users(self):
+        try:
+            result = db.session.execute(
+                get_top_users_script, {'_unit': self.unit_title})
+        except KeyError:
+            return 404
+        return get_top_users(result)
+
+    def __call__(self):
+        spam = {'top_users': self.top_users(),
+                'filetypes': self.filetypes_numbers()}
+        return dict(spam, **self.unit_statistics()) # **self.filetypes_numbers(),
