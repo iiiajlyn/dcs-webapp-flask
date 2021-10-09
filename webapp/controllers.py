@@ -15,7 +15,6 @@ from webapp.services.get_top_users_statistics import get_top_users
 from webapp.services.get_units_statistics import get_units_stats
 
 
-
 def menu_dict():
     menu_titles = Units.query.join(
         UnitTypes, Units.unit_type_id==UnitTypes.id
@@ -26,12 +25,18 @@ def page_background(slug):
     return get_background(slug)
 
 def unit_stats(slug):
-    return get_units_stats(slug)
+    result = {
+        'unit_title': slug_item[slug],
+        'mani_graph': get_units_stats(slug)
+    }
+    return result
 
 def filetypes_numbers(slug):
     return get_filetypes_num(slug)
 
 def top_users(slug):
-    result = db.session.execute(get_top_users_script, {'_unit': slug_item[slug]})
+    try:
+        result = db.session.execute(get_top_users_script, {'_unit': slug_item[slug]})
+    except KeyError:
+        return 404
     return get_top_users(result)
-
