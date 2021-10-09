@@ -2,18 +2,17 @@ from flask import render_template, Blueprint, request
 
 from webapp import db
 from webapp.lib.slug_unit_dict import slug_item
+from webapp.lib.get_filetypes_sql import get_filetypes_script
 from webapp.lib.get_top_users_sql import get_top_users_script
 
 
 from webapp.models import (Developers, FilesStats, FileTypes, Units, UnitTypes,
                            Users)
 
-from webapp.services.get_filetypes_numbers import get_filetypes_num
 from webapp.services.get_menu import get_menu_titles
 from webapp.services.get_page_background import get_background
-from webapp.services.get_top_users_statistics import get_top_users
-from webapp.services.get_units_statistics import get_units_stats
 from webapp.services.get_page_stats import UnitStats
+from webapp.services.get_units_statistics import get_units_stats
 
 def menu_dict():
     menu_titles = Units.query.join(
@@ -60,20 +59,19 @@ class StatsController:
         return result
 
     def filetypes_numbers(self):
-        file_types = db.session.query.where(
-                FilesStats.unit_id == self.unit_id).all()
-        print(file_types)
-        return get_filetypes_num(self.unit_title)
+        file_types = db.session.execute(
+            get_filetypes_script, {'_units': self.unit_id}).all()
+        return self.unit_stats.get_filetypes_qty(file_types)
 
     def top_users(self):
         try:
             result = db.session.execute(
-                get_top_users_script, {'_unit': self.unit_title})
+                get_top_users_script, {'_units': self.unit_title})
         except KeyError:
             return 404
-        return get_top_users(result)
+        return self.unit_stats.get_top_users(result)
 
     def __call__(self):
         spam = {'top_users': self.top_users(),
                 'filetypes': self.filetypes_numbers()}
-        return dict(spam, **self.unit_statistics()) # **self.filetypes_numbers(),
+        return dict(spam, **self.unit_statistics())

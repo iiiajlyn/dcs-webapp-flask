@@ -15,16 +15,12 @@ def stats(slug):
     params ={
         'menu': menu_dict(),
         'bkg': page_background(slug),
-        'top_user': unit_stats.top_users(),
         }
-    if params['top_user'] == 404:
-        abort(404)
     params = dict(params, **unit_stats())
-    print(params)
+    if params['top_users'] == 404:
+        abort(404)
     return render_template('index.html', **params)
 
-
-# HTTP error handling
 @webapp.errorhandler(404)
 def not_found(error, slug=None):
     params ={
