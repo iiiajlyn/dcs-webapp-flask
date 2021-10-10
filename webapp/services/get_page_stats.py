@@ -9,6 +9,18 @@ class UnitStats:
     def get_total_downloads(self, result):
         return get_thousands(result[0])
 
+    def get_main_graph_stats(self, result, years):
+        eggs = {
+            'period': [],
+            'value': []}
+        for row in result:
+            if years == 'YEAR':
+                eggs['period'].append(int(row[0]))
+            else:
+                eggs['period'].append(f'{int(row[0])}/{int(row[1])}')
+            eggs['value'].append(row[2])
+        return eggs
+
     def get_filetypes_qty(self, result):
         eggs = {
             'types': [],

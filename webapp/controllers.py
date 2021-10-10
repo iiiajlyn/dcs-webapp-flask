@@ -1,10 +1,12 @@
+import datetime as dt
+
 from flask import render_template, Blueprint, request
 
 from webapp import db
 from webapp.lib.slug_unit_dict import slug_item
 from webapp.lib.get_filetypes_sql import get_filetypes_script
 from webapp.lib.get_top_users_sql import get_top_users_script
-
+from webapp.lib.get_files_by_date_sql import get_files_by_date_script
 
 from webapp.models import (Developers, FilesStats, FileTypes, Units, UnitTypes,
                            Users)
@@ -29,7 +31,20 @@ class StatsController:
         self.unit_title = slug_item[slug]
         self.unit_id  = Units.query.where(
             Units.unit_name == self.unit_title).first().id
+        self.main_graph_period = self.get_main_graph_period()
         self.unit_stats = UnitStats(self.unit_id)
+
+    def get_main_graph_period(self):
+        max_date = db.session.query(db.func.max(
+            FilesStats.publishing_date)).where(
+                FilesStats.unit_id == self.unit_id).first()[0]
+        min_date = db.session.query(db.func.min(
+            FilesStats.publishing_date)).where(
+                FilesStats.unit_id == self.unit_id).first()[0]
+        delta_date = max_date - min_date
+        if delta_date < dt.timedelta(days=712):
+            return 'MONTH'
+        return 'YEAR'
 
     def unit_statistics(self):
         total_files = FilesStats.query.where(
@@ -48,13 +63,21 @@ class StatsController:
             FilesStats.publishing_date)).where(
                 FilesStats.unit_id == self.unit_id).first()[0]
 
+        main_graph = db.session.execute(
+            get_files_by_date_script,
+            {'_units': self.unit_id,
+            '_date_part': self.main_graph_period}).all()
+        main_graph = self.unit_stats.get_main_graph_stats(
+            main_graph,
+            self.main_graph_period)
+
         result = {
             'unit_title': self.unit_title,
             'total_files': total_files,
             'total_downloads': total_downloads,
             'total_users': total_users,
             'last_upload_date': last_upload_date,
-            'main_graph': get_units_stats(self.unit_id)
+            'main_graph': {**main_graph, 'graph_type': 'line'}
         }
         return result
 
