@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    {{ unit_title|default('', true) }} Dashbord
-{% endblock %}
+{% block title %}{{ unit_title|default('', true) }} Dashbord{% endblock %}
+{% block description %}{{ description }}{% endblock %}
 
-{% block content_title %}
-    {{ unit_title|default('', true) }} Dashbord
-{% endblock %}
+{% block content_title %}{{ unit_title|default('', true) }} Dashbord{% endblock %}
 
 {% block content %}
             <div class="graphs">

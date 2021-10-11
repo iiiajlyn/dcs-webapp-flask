@@ -1,6 +1,6 @@
+'''Controllers for webapp.'''
 import datetime as dt
 
-from flask import render_template, Blueprint, request
 
 from webapp import db
 from webapp.lib.slug_unit_dict import slug_item
@@ -11,15 +11,14 @@ from webapp.lib.get_files_by_date_sql import get_files_by_date_script
 from webapp.lib.custom.get_filetypes_sql import get_filetypes_main
 from webapp.lib.custom.get_top_users_sql import get_top_users_main
 from webapp.lib.custom.get_files_by_date_sql import get_files_by_date_main
-from webapp.models import (Developers, FilesStats, FileTypes, Units, UnitTypes,
-                           Users)
+from webapp.models import (FilesStats, Units, UnitTypes)
 
 from webapp.services.get_menu import get_menu_titles
 from webapp.services.get_page_background import get_background
 from webapp.services.get_page_stats import UnitStats
-from webapp.services.get_units_statistics import get_units_stats
 
 def menu_dict():
+    '''Return menu items.'''
     menu_titles = Units.query.join(
         UnitTypes, Units.unit_type_id==UnitTypes.id
     ).add_columns(Units.unit_name, UnitTypes.unit_type_name).all()
@@ -29,10 +28,12 @@ def page_background(slug):
     return get_background(slug)
 
 class StatsController:
+    '''StatsController return statistics.'''
 
     def __init__(self, slug):
         self.slug = slug
         self.unit_title = self.get_unit_title()
+        self.description = self.get_unit_description()
         self.unit_id  = self.get_unit_id()
         self.main_graph_period = self.get_main_graph_period()
         self.unit_stats = UnitStats(self.unit_id)
@@ -41,6 +42,11 @@ class StatsController:
         if not self.slug:
             return 'Common'
         return slug_item[self.slug]
+
+    def get_unit_description(self):
+        if not self.slug:
+            return 'Common Dashboard of all units in Digital Combat Simulator.'
+        return f'{self.unit_title} Dashboard.'
 
     def get_unit_id(self):
         if self.unit_title != 'Common':
@@ -53,6 +59,7 @@ class StatsController:
         return spam
 
     def get_main_graph_period(self):
+        '''Method return date period for main graph.'''
         if self.slug:
             max_date = db.session.query(db.func.max(
                 FilesStats.publishing_date)).where(
@@ -66,6 +73,7 @@ class StatsController:
         return 'YEAR'
 
     def unit_statistics(self):
+        '''Method return unit statistics.'''
         if self.slug:
             total_files = FilesStats.query.where(
                 FilesStats.unit_id == self.unit_id).count()
@@ -122,6 +130,7 @@ class StatsController:
         return result
 
     def filetypes_numbers(self):
+        '''Method get numbers of filetypes.'''
         if self.slug:
             file_types = db.session.execute(
                 get_filetypes_script,
@@ -132,6 +141,7 @@ class StatsController:
         return self.unit_stats.get_filetypes_qty(file_types)
 
     def top_users(self):
+        '''Method return top 10 username.'''
         try:
             if self.slug:
                 result = db.session.execute(
@@ -145,5 +155,6 @@ class StatsController:
 
     def __call__(self):
         spam = {'top_users': self.top_users(),
-                'filetypes': self.filetypes_numbers()}
+                'filetypes': self.filetypes_numbers(),
+                'description': f'{self.description}'}
         return dict(spam, **self.unit_statistics())

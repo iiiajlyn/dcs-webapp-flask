@@ -1,28 +1,32 @@
+'''Controllers for blogapp.'''
 from flask import Blueprint, render_template
-from webapp.controllers import menu_dict, page_background
-from webapp.models import Posts
 
+from .controllers import get_index_posts, get_post_detail
+from webapp.controllers import menu_dict, page_background
 
 posts = Blueprint('posts', __name__, url_prefix='/blog/', template_folder='templates')
 
 @posts.route('/')
 def index(slug=None):
-    # TODO: Request only post_cut
     params = {
-        'cuts': Posts.query.all(),
         'bkg': page_background(slug),
-        'menu': menu_dict()
+        'cuts': get_index_posts(),
+        'menu': menu_dict(),
+        'description': 'List of posts'
     }
+
+    print(params['description'])
     return render_template('blog/index.html', **params)
 
 @posts.route('/<slug>')
 def post_detail(slug):
-    bkg = page_background(slug)
-    post = Posts.query.filter(Posts.slug==slug).first()
-    return render_template('blog/post_detail.html',
-                           post=post,
-                           menu=menu_dict(),
-                           bkg=bkg)
+    params = {
+        'bkg': page_background(slug),
+        'menu': menu_dict(),
+        'post': get_post_detail(slug)
+    }
+    params['description'] = params['post']['description']
+    return render_template('blog/post_detail.html', **params)
 
 # HTTP error handling
 @posts.errorhandler(404)
