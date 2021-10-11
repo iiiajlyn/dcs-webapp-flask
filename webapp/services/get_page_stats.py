@@ -18,7 +18,7 @@ class UnitStats:
                 eggs['period'].append(int(row[0]))
             else:
                 eggs['period'].append(f'{int(row[0])}/{int(row[1])}')
-            eggs['value'].append(row[2])
+            eggs['value'].append(int(row[2]))
         return eggs
 
     def get_filetypes_qty(self, result):

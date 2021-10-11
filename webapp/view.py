@@ -6,8 +6,15 @@ webapp = Blueprint('webapp', __name__, url_prefix='/')
 
 @webapp.route('/')
 def index(slug=None):
-    bkg = page_background(slug)
-    return render_template('index.html', menu=menu_dict(), bkg=bkg)
+    unit_stats = StatsController(slug)
+    params ={
+        'menu': menu_dict(),
+        'bkg': page_background(slug),
+        }
+    params = dict(params, **unit_stats())
+    if params['top_users'] == 404:
+        abort(404)
+    return render_template('index.html', **params)
 
 @webapp.route('/stats/<slug>')
 def stats(slug):

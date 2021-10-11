@@ -556,6 +556,7 @@ h3 {
 }
 
 .posts-list {
+    width: 890px;
     padding-left: 30px;
     display: flex;
     flex-direction: column;

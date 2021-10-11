@@ -26,8 +26,8 @@
             <img src="{{ url_for('static', filename='img/ma5ta-avatar.png') }}" alt="Ma5ta avatar" class="logo"></a>
             <a href="{{ url_for('webapp.index') }}">
                 <div class="site-title">
-                    <p class="site-name">Ma5ta.ru</p>
-                    <p class="site-description">Description</p>
+                    <p class="site-name">Ma5ta</p>
+                    <p class="site-description">DCS enthusiast</p>
                 </div>
             </a>
             </sidebar__header>
@@ -37,17 +37,11 @@
                         <p class="menu__item__text">General</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                            <a href="#" class="menu__link">
+                            <a href="{{ url_for('webapp.index') }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
-                                    <img src="img/icons/a-10a-icon.png" alt="common dashboard icon" class="tech__icon">
+                                    <img src="{{ url_for('static', filename='/img/icons/common_dashboard.png') }}" alt="common dashboard icon" class="tech__icon">
                                     <p class="submenu__subitem__text">Common Dashboard</p>
 
-                                </li>
-                            </a>
-                            <a href="#" class="menu__link">
-                                <li class="submenu__subitem submenu__font">
-                                    <img src="img/icons/f-14-icon.png" alt="" class="tech__icon">
-                                    <p class="submenu__subitem__text">User`s statistics</p>
                                 </li>
                             </a>
                         </ul>
@@ -140,8 +134,7 @@
                                 <input id="group-1" type="checkbox" hidden />
                                 <label for="group-1"><span class="control-menu">&or;</span>General</label>
                                 <ul class="group-list">
-                                    <li><a href="/">1st level item</a></li>
-                                    <li><a href="#">1st level item</a></li>
+                                    <li><a href="{{ url_for('webapp.index') }}">Common Dashboard</a></li>
                                 </ul>
                             </li>
                             <li>
