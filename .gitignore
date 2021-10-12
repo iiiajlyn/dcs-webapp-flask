@@ -132,3 +132,4 @@ dmypy.json
 activate
 dump/
 migrations/
+uploads/

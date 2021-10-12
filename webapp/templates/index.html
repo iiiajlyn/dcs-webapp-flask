@@ -31,7 +31,10 @@
                         <script>
                             var options = {
                                 chart: {
-                                    type: '{{ main_graph.graph_type }}'
+                                    type: '{{ main_graph.graph_type }}',
+                                },
+                                dataLabels: {
+                                enabled: false,
                                 },
                                 stroke: {
                                 curve: 'smooth',
@@ -44,7 +47,11 @@
                                     data: {{ main_graph.value }}
                                 }],
                                 xaxis: {
-                                    categories: {{ main_graph.period|safe }}
+                                    categories: {{ main_graph.period|safe }},
+                                    labels: {
+                                            rotateAlways: false,
+                                            rotate: -90,
+                                    }
                                 }
                             }
                             var chart = new ApexCharts(document.querySelector(".main-graph"), options);
@@ -61,6 +68,15 @@
                                     chart: {
                                         type: 'bar',
                                         horizontal: true,
+                                    },
+                                    dataLabels: {
+                                    enabled: true,
+                                    textAnchor: 'top',
+                                    style: {
+                                        fontSize: '12px',
+                                        fontWeight: 'bold',
+                                        colors: ['black'],
+                                        },
                                     },
                                     series: [{
                                         name: 'Files',

@@ -9,8 +9,9 @@ from webapp.lib.get_top_users_sql import get_top_users_script
 from webapp.lib.get_files_by_date_sql import get_files_by_date_script
 # TODO: Delete custom scripts
 from webapp.lib.custom.get_filetypes_sql import get_filetypes_main
-from webapp.lib.custom.get_top_users_sql import get_top_users_main
 from webapp.lib.custom.get_files_by_date_sql import get_files_by_date_main
+from webapp.lib.custom.get_number_of_files_by_units_sql import get_number_of_files_by_units_script
+from webapp.lib.custom.get_top_users_sql import get_top_users_main
 from webapp.models import (FilesStats, Units, UnitTypes)
 
 from webapp.services.get_menu import get_menu_titles
@@ -97,7 +98,8 @@ class StatsController:
 
             total_downloads = db.session.query(db.func.sum(
                 FilesStats.downloaded)).first()
-            total_downloads = self.unit_stats.get_total_downloads(total_downloads)
+            total_downloads = self.unit_stats.get_total_downloads(
+                total_downloads)
 
             total_users = db.session.query(db.func.count(
                 db.func.distinct(FilesStats.user_id))).first()[0]
@@ -112,12 +114,14 @@ class StatsController:
                 '_date_part': self.main_graph_period}
             ).all()
         else:
-            main_graph = db.session.execute(get_files_by_date_main).all()
+            main_graph = db.session.execute(
+                get_number_of_files_by_units_script).all()
 
         main_graph = self.unit_stats.get_main_graph_stats(
             main_graph,
             self.main_graph_period
             )
+        graph_type = 'line' if self.slug else 'bar'
 
         result = {
             'unit_title': self.unit_title,
@@ -125,7 +129,7 @@ class StatsController:
             'total_downloads': total_downloads,
             'total_users': total_users,
             'last_upload_date': last_upload_date,
-            'main_graph': {**main_graph, 'graph_type': 'line'}
+            'main_graph': {**main_graph, 'graph_type': graph_type}
         }
         return result
 

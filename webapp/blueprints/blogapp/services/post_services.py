@@ -8,5 +8,4 @@ def get_post_comments(comments):
             'comment_date': dt.strftime(com.comment_date, '%Y-%m-%d'),
             'comment_content': com.comment_content
         })
-    print(spam)
     return spam

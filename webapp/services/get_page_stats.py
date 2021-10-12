@@ -14,11 +14,16 @@ class UnitStats:
             'period': [],
             'value': []}
         for row in result:
-            if years == 'YEAR':
-                eggs['period'].append(int(row[0]))
+            try:
+                if years == 'YEAR':
+                    eggs['period'].append(int(row[0]))
+                else:
+                    eggs['period'].append(f'{int(row[0])}/{int(row[1])}')
+            except ValueError:
+                eggs['period'].append(row[0])
+                eggs['value'].append(int(row[1]))
             else:
-                eggs['period'].append(f'{int(row[0])}/{int(row[1])}')
-            eggs['value'].append(int(row[2]))
+                eggs['value'].append(int(row[2]))
         return eggs
 
     def get_filetypes_qty(self, result):
