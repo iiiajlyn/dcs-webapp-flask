@@ -1,7 +1,8 @@
 from datetime import datetime as dt
 
 from webapp import db
-from webapp.models import Posts
+from webapp.models import Posts, PostComments
+from webapp.blueprints.blogapp.services.post_services import get_post_comments
 
 def get_index_posts():
     spam = []
@@ -19,10 +20,14 @@ def get_index_posts():
 
 def get_post_detail(slug):
     post = Posts.query.filter(Posts.slug==slug).first()
+    comments = PostComments.query.filter(
+        PostComments.comment_post_id == post.id).all()
     p_date = dt.strftime(post.post_date, '%Y-%m-%d')
-    return {'post_title': post.post_title,
+    spam = {'post_title': post.post_title,
+            'description': post.description,
             'slug': post.slug,
             'post_date': p_date,
             'post_content': post.post_content,
-            'description': post.description
+            'comments': get_post_comments(comments)
             }
+    return spam

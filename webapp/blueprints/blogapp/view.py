@@ -14,8 +14,6 @@ def index(slug=None):
         'menu': menu_dict(),
         'description': 'List of posts'
     }
-
-    print(params['description'])
     return render_template('blog/index.html', **params)
 
 @posts.route('/<slug>')

@@ -568,6 +568,14 @@ h3 {
     padding: 0px 10px 5px 10px;
 }
 
+.comment-author {
+    font-weight: 700;
+}
+
+.comment-text {
+    margin-bottom: 40px;
+}
+
 footer {
     display: flex;
     flex-direction: column;

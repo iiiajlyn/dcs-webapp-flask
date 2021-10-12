@@ -24,7 +24,7 @@ class PostComments(db.Model):
         super().__init__(*args, **kwargs)
 
     def __repr__(self):
-        return f'<Comment id: {self.id}, Post id: {self.comment_post_id}'
+        return f'<{self.id=},{self.comment_post_id=}'
 
 class Posts(db.Model):
     '''Posts table.'''
