@@ -10,10 +10,10 @@ posts = Blueprint('posts', __name__, url_prefix='/blog/', template_folder='templ
 def index(slug=None):
     params = {
         'bkg': page_background(slug),
-        'cuts': get_index_posts(),
+        'description': 'List of posts',
         'menu': menu_dict(),
-        'description': 'List of posts'
     }
+    params = dict(params, **get_index_posts())
     return render_template('blog/index.html', **params)
 
 @posts.route('/<slug>')
@@ -34,4 +34,3 @@ def not_found(error, slug=None):
         'bkg': page_background(slug)
         }
     return render_template('404.html', **params), 404
-
