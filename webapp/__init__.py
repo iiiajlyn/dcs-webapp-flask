@@ -1,10 +1,11 @@
+import os
 from flask import Flask, render_template
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from config import Configuration
+from config import DevelopmentConfiguration, ProductionConfiguration, TestConfiguration
 
 db = SQLAlchemy()
 
@@ -14,7 +15,13 @@ def create_app():
     # app = Flask('app')
 
     # Configurations
-    app.config.from_object(Configuration)
+    if os.environ['FLASK_ENV'] == 'development':
+        app.config.from_object(DevelopmentConfiguration)
+    elif os.environ['FLASK_ENV'] == 'testing':
+        app.config.from_object(TestConfiguration)
+    else:
+        app.config.from_object(ProductionConfiguration)
+
 
     # Define the database object which is imported
     # by modules and controllers

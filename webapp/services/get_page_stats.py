@@ -26,6 +26,11 @@ class UnitStats:
                 eggs['value'].append(int(row[2]))
         return eggs
 
+    def get_popular_units(self, pop_units):
+        pop_units = dict(pop_units)
+        if self.unit_id in set(pop_units.keys()):
+            return pop_units[self.unit_id]
+
     def get_filetypes_qty(self, result):
         eggs = {
             'types': [],

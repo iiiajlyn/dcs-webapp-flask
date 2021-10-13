@@ -34,7 +34,7 @@ def get_index_posts():
     return spam
 
 def get_post_detail(slug):
-    post = Posts.query.filter(Posts.slug==slug).first()
+    post = Posts.query.filter(Posts.slug==slug).first_or_404()
     comments = PostComments.query.filter(
         PostComments.comment_post_id == post.id).all()
     p_date = dt.strftime(post.post_date, '%Y-%m-%d')

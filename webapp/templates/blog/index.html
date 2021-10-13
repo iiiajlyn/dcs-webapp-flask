@@ -14,7 +14,7 @@
     <div class="posts-list">
         {% for cut in cuts %}
             <p><a href="{{ url_for('posts.post_detail', slug=cut.slug)}}" class="posts-line">{{ cut.post_title }} - {{ cut.post_date }}</a></p>
-            <p>{{ cut.post_cut|striptags }}</p>
+            <p class="posts-list__cut">{{ cut.post_cut|striptags }}</p>
         {% endfor %}
         <pagination>
             <ul class="pages">

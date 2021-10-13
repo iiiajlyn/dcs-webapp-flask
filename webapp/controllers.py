@@ -7,6 +7,7 @@ from webapp.lib.slug_unit_dict import slug_item
 from webapp.lib.get_filetypes_sql import get_filetypes_script
 from webapp.lib.get_top_users_sql import get_top_users_script
 from webapp.lib.get_files_by_date_sql import get_files_by_date_script
+from webapp.lib.get_popular_units_sql import get_popular_units_script
 # TODO: Delete custom scripts
 from webapp.lib.custom.get_filetypes_sql import get_filetypes_main
 from webapp.lib.custom.get_files_by_date_sql import get_files_by_date_main
@@ -52,7 +53,7 @@ class StatsController:
     def get_unit_id(self):
         if self.unit_title != 'Common':
             return Units.query.where(
-                Units.unit_name == self.unit_title).first().id
+                Units.unit_name == self.unit_title).first_or_404().id
         ids = Units.query.add_columns(Units.id).all()
         spam = []
         for _id in ids:
@@ -64,10 +65,10 @@ class StatsController:
         if self.slug:
             max_date = db.session.query(db.func.max(
                 FilesStats.publishing_date)).where(
-                    FilesStats.unit_id == self.unit_id).first()[0]
+                    FilesStats.unit_id == self.unit_id).first_or_404()[0]
             min_date = db.session.query(db.func.min(
                 FilesStats.publishing_date)).where(
-                    FilesStats.unit_id == self.unit_id).first()[0]
+                    FilesStats.unit_id == self.unit_id).first_or_404()[0]
             delta_date = max_date - min_date
             if delta_date < dt.timedelta(days=700):
                 return 'MONTH'
@@ -81,31 +82,33 @@ class StatsController:
 
             total_downloads = db.session.query(db.func.sum(
                 FilesStats.downloaded)).where(
-                    FilesStats.unit_id == self.unit_id).first()
+                    FilesStats.unit_id == self.unit_id).first_or_404()
             total_downloads = self.unit_stats.get_total_downloads(
                 total_downloads)
 
             total_users = db.session.query(db.func.count(
                 db.func.distinct(FilesStats.user_id))).where(
-                    FilesStats.unit_id == self.unit_id).first()[0]
+                    FilesStats.unit_id == self.unit_id).first_or_404()[0]
 
             last_upload_date = db.session.query(db.func.max(
                 FilesStats.publishing_date)).where(
-                    FilesStats.unit_id == self.unit_id).first()[0]
+                    FilesStats.unit_id == self.unit_id).first_or_404()[0]
         else:
             total_files = FilesStats.query.add_column(
                 FilesStats.file_id).count()
 
             total_downloads = db.session.query(db.func.sum(
-                FilesStats.downloaded)).first()
+                FilesStats.downloaded)).first_or_404()
             total_downloads = self.unit_stats.get_total_downloads(
                 total_downloads)
 
             total_users = db.session.query(db.func.count(
-                db.func.distinct(FilesStats.user_id))).first()[0]
+                db.func.distinct(FilesStats.user_id))).first_or_404()[0]
 
             last_upload_date = db.session.query(db.func.max(
-                FilesStats.publishing_date)).first()[0]
+                FilesStats.publishing_date)).first_or_404()[0]
+
+        unit_popularity = ''
 
         if self.slug:
             main_graph = db.session.execute(
@@ -113,6 +116,10 @@ class StatsController:
                 {'_units': self.unit_id,
                 '_date_part': self.main_graph_period}
             ).all()
+
+            unit_popularity = db.session.execute(
+                get_popular_units_script).all()
+            unit_popularity = self.unit_stats.get_popular_units(unit_popularity)
         else:
             main_graph = db.session.execute(
                 get_number_of_files_by_units_script).all()
@@ -129,7 +136,8 @@ class StatsController:
             'total_downloads': total_downloads,
             'total_users': total_users,
             'last_upload_date': last_upload_date,
-            'main_graph': {**main_graph, 'graph_type': graph_type}
+            'main_graph': {**main_graph, 'graph_type': graph_type},
+            'release_date': unit_popularity
         }
         return result
 
