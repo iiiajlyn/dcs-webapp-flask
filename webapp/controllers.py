@@ -8,16 +8,18 @@ from webapp.lib.get_filetypes_sql import get_filetypes_script
 from webapp.lib.get_top_users_sql import get_top_users_script
 from webapp.lib.get_files_by_date_sql import get_files_by_date_script
 from webapp.lib.get_popular_units_sql import get_popular_units_script
+from webapp.lib.get_last_modified_sql import last_modified_script
 # TODO: Delete custom scripts
 from webapp.lib.custom.get_filetypes_sql import get_filetypes_main
 from webapp.lib.custom.get_files_by_date_sql import get_files_by_date_main
 from webapp.lib.custom.get_number_of_files_by_units_sql import get_number_of_files_by_units_script
 from webapp.lib.custom.get_top_users_sql import get_top_users_main
-from webapp.models import (FilesStats, Units, UnitTypes)
+from webapp.models import FilesStats, Posts, Units, UnitTypes
 
 from webapp.services.get_menu import get_menu_titles
 from webapp.services.get_page_background import get_background
 from webapp.services.get_page_stats import UnitStats
+from webapp.services.get_sitemap_unit import get_sitemap_unit_page
 
 def menu_dict():
     '''Return menu items.'''
@@ -28,6 +30,14 @@ def menu_dict():
 
 def page_background(slug):
     return get_background(slug)
+
+def get_sitemap():
+    spam = []
+    units = db.session.execute(last_modified_script).all()
+    posts = Posts.query.order_by(db.asc(Posts.post_date)
+                                 ).add_columns(Posts.slug, Posts.post_date).all()
+    pages = get_sitemap_unit_page(units, posts)
+    return pages
 
 class StatsController:
     '''StatsController return statistics.'''

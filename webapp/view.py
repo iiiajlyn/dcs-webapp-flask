@@ -1,5 +1,8 @@
-from flask import abort, Blueprint, render_template, request
-from webapp.controllers import menu_dict, page_background, StatsController
+from datetime import date
+
+from flask import (abort, Blueprint, current_app, render_template, request,
+                   send_from_directory)
+from webapp.controllers import get_sitemap, menu_dict, page_background, StatsController
 
 
 webapp = Blueprint('webapp', __name__, url_prefix='/')
@@ -28,6 +31,25 @@ def stats(slug):
         abort(404)
     return render_template('index.html', **params)
 
+@webapp.route('/sitemap.xml')
+def sitemap():
+    base_url = 'http://ma5ta.ru'
+    for i in dir(current_app):
+        print(i)
+    print(current_app.url_map)
+    pages = get_sitemap()
+    return render_template(
+        'sitemap_template.xml',
+        pages=pages,
+        base_url=base_url,
+        date_now = date.today().isoformat())
+
+@webapp.route('/robots.txt')
+@webapp.route('/googledebc99b136ef1c75.html')
+@webapp.route('/yandex_7044a0c33d4d37d4.html')
+def static_from_root():
+    return send_from_directory(current_app.static_folder, request.path[1:])
+
 @webapp.errorhandler(404)
 def not_found(error, slug=None):
     params ={
@@ -35,3 +57,4 @@ def not_found(error, slug=None):
         'bkg': page_background(slug)
         }
     return render_template('404.html', **params), 404
+
