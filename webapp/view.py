@@ -76,4 +76,3 @@ def not_found(error, slug=None):
         'bkg': page_background(slug)
         }
     return render_template('404.html', **params), 404
-

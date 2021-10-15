@@ -33,15 +33,14 @@
                         <p class="menu__item__text">General</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                                {% if request.path != url_for('webapp.index') %}
-                                    <a href="{{ url_for('webapp.index') }}" class="menu__link">
-                                {% else %}
-                                    <a href="#" class="menu__link">
-                                {% endif %}
+                            {% if request.path != url_for('webapp.index') %}
+                                <a href="{{ url_for('webapp.index') }}" class="menu__link">
+                            {% else %}
+                                <a href="#" class="menu__link">
+                            {% endif %}
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename='img/icons/dcs-2.ico') }}" alt="common dashboard icon" class="tech__icon">
-                                    <p class="submenu__subitem__text">Common Dashboard</p>
-
+                                    <p class="submenu__subitem__text active-menu">Common Dashboard</p>
                                 </li>
                             </a>
                         </ul>
@@ -53,12 +52,21 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Jet %}
+                                {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
                                     <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                         <li class="submenu__subitem submenu__font">
                                             <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                             <p class="submenu__subitem__text">{{ subitem.text }}</p>
                                         </li>
-                                </a>
+                                    </a>
+                                {% else %}
+                                    <span class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                            <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                            <p class="active-menu submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </span>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
@@ -69,12 +77,21 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Helicopter %}
-                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
-                                <li class="submenu__subitem submenu__font">
-                                    <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
-                                    <p class="submenu__subitem__text">{{ subitem.text }}</p>
-                                </li>
-                            </a>
+                                {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                    <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                            <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                            <p class="submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </a>
+                                {% else %}
+                                    <span class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                            <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                            <p class="active-menu submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </span>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
@@ -85,12 +102,21 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Trainer %}
-                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
-                                <li class="submenu__subitem submenu__font">
-                                    <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
-                                    <p class="submenu__subitem__text">{{ subitem.text }}</p>
-                                </li>
-                            </a>
+                                {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                    <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                            <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                            <p class="submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </a>
+                                {% else %}
+                                    <span class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                        <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                        <p class="active-menu submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </span>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
@@ -101,22 +127,35 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.WWII %}
-                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
-                                <li class="submenu__subitem submenu__font">
-                                    <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
-                                    <p class="submenu__subitem__text">{{ subitem.text }}</p>
-                                </li>
-                            </a>
+                                {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                    <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                        <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                        <p class="submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </a>
+                                {% else %}
+                                    <span class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                        <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                        <p class="active-menu submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                    </span>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
                 </li>
-                <a href="{{ url_for('posts.index') }}">
-                    <li class="menu__item">
-                        <div class="menu__item__title menu__font">
-                            <p class="menu__item__text">Blog</p>
-                        </div>
-                    </li>
+                {% if request.path != url_for('posts.index') %}
+                    <a href="{{ url_for('posts.index') }}">
+                {% else %}
+                    <a href="#">
+                {% endif %}
+                <li class="menu__item">
+                    <div class="menu__item__title menu__font">
+                        <p class="menu__item__text active-menu">Blog</p>
+                    </div>
+                </li>
                 </a>
             </ul>
         </sidebar>
@@ -134,7 +173,11 @@
                                 <input id="group-1" type="checkbox" hidden />
                                 <label for="group-1"><span class="control-menu">&or;</span>General</label>
                                 <ul class="group-list">
-                                    <li><a href="{{ url_for('webapp.index') }}">Common Dashboard</a></li>
+                                    {% if request.path != url_for('webapp.index') %}
+                                        <li><a href="{{ url_for('webapp.index') }}">Common Dashboard</a></li>
+                                    {% else %}
+                                        <li class="active-menu">Common Dashboard</li>
+                                    {% endif %}
                                 </ul>
                             </li>
                             <li>
@@ -143,7 +186,11 @@
                                 <ul class="group-list">
                                     {% for subitem in menu.Jet %}
                                         <li>
-                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% else %}
+                                                <p class="active-menu menu__link">{{ subitem.text }}</p>
+                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -154,7 +201,11 @@
                                 <ul class="group-list">
                                     {% for subitem in menu.Helicopter %}
                                         <li>
-                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% else %}
+                                                <p class="active-menu menu__link">{{ subitem.text }}</p>
+                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -165,7 +216,12 @@
                                 <ul class="group-list">
                                     {% for subitem in menu.Trainer %}
                                         <li>
-                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% else %}
+                                                <p class="active-menu menu__link">{{ subitem.text }}</p>
+                                            {% endif %}
+                                        </li>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -176,14 +232,23 @@
                                 <ul class="group-list">
                                     {% for subitem in menu.WWII %}
                                         <li>
-                                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% if request.path != url_for('webapp.stats', slug=subitem.url) %}
+                                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">{{ subitem.text }}</a>
+                                            {% else %}
+                                                <p class="active-menu menu__link">{{ subitem.text }}</p>
+                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <a href="/blog">
-                                <li>Blog</li>
-                            </a>
+                            {% if request.path != url_for('posts.index') %}
+                                <a href="{{ url_for('posts.index') }}">
+                                    <li>Blog</li>
+                            {% else %}
+                                <a href="#">
+                                    <li class="active-menu">Blog</li>
+                            {% endif %}
+                                </a>
                         </ul>
                     </ul>
 

@@ -75,6 +75,10 @@ sidebar__header {
     text-decoration: none;
 }
 
+.active-menu {
+    color: var(--dcs-yellow);
+}
+
 .menu__item {
     min-height: 40px;
     margin: 0px;
