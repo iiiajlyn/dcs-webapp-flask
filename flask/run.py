@@ -1,8 +1,8 @@
 from webapp import create_app
 
-def main():
-    app = create_app()
-    app.run()
+def main(*args, **kwargs):
+    app = create_app(*args, **kwargs)
+    return app
 
 
 if __name__ == '__main__':

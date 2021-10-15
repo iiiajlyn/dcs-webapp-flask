@@ -5,3 +5,6 @@ activate
 env.sh
 webapp/*/__pycache__/
 webapp/static
+__pycache__/
+.dockerignore
+
