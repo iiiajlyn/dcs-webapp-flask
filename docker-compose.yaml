@@ -12,3 +12,10 @@ services:
     env_file:
       - ./env.dev
     restart: on-failure
+
+  nginx:
+    build: ./nginx
+    expose:
+      - 5000
+    depends_on:
+      - flask
