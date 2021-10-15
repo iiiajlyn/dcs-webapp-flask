@@ -34,9 +34,6 @@ def stats(slug):
 @webapp.route('/sitemap.xml')
 def sitemap():
     base_url = 'http://ma5ta.ru'
-    for i in dir(current_app):
-        print(i)
-    print(current_app.url_map)
     pages = get_sitemap()
     return render_template(
         'sitemap_template.xml',

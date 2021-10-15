@@ -1,12 +1,14 @@
-version: '3'
+version: "3"
 
 services:
   flask:
-    build: .
+    build: ./flask
     container_name: flask_cont
     volumes:
-      - ./webapp/static/:/app/webapp/static/
+      - ./flask/webapp/static/:/app/webapp/static/
     ports:
       - "5000:5000"
-    command: flask run
+    command: flask run --host=0.0.0.0
+    env_file:
+      - ./env.dev
     restart: on-failure

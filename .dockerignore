@@ -1,7 +1,0 @@
-venv/
-migrations/
-dump/
-activate
-env.sh
-webapp/*/__pycache__/
-webapp/static
