@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.post_title }}{% endblock %}
+
+{% block description %}{{ description }}{% endblock %}
+
+{% block content_title %}{{ post.post_title }}{% endblock %}
+
+
+{% block content %}
+    <div class="posts-list">
+        {{ post.post_content | safe }}
+        <comments>
+            <h2>Comments</h2>
+            <div class="comment-list">
+            {% for com in post.comments %}
+                <div class="comment-author">{{ com.author }}</div>
+                <div class="comment-date">Date: {{ com.comment_date }}</div>
+                <div class="comment-text">{{ com.comment_content }}</div>
+            {% endfor %}
+            </div>
+        </comments>
+    </div>
+{% endblock %}

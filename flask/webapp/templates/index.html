@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ unit_title|default('', true) }} Dashbord{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+
+{% block content_title %}{{ unit_title|default('', true) }} Dashbord{% endblock %}
+
+{% block content %}
+            <div class="graphs">
+                <totals>
+                    <div class="total total_files">
+                        <total__name>Total files</total__name>
+                        <total__indicator>{{ total_files }}</total__indicator>
+                    </div>
+                    <div class="total total_downloads">
+                        <total__name>Total downloads</total__name>
+                        <total__indicator>{{ total_downloads }}</total__indicator>
+                    </div>
+                    <div class="total total_users">
+                        <total__name>Total users</total__name>
+                        <total__indicator>{{ total_users }}</total__indicator>
+                    </div>
+                    <div class="total updated">
+                        <total__name>Last upload date</total__name>
+                        <total__indicator>{{ last_upload_date }}</total__indicator>
+                    </div>
+                </totals>
+                <h2>Number of users files</h2>
+                <div class="main-graph graph-background">
+                    <div class="apex-script">
+                        <script>
+                            var options = {
+                                chart: {
+                                    type: '{{ main_graph.graph_type }}',
+                                },
+                                dataLabels: {
+                                enabled: false,
+                                },
+                                stroke: {
+                                curve: 'smooth',
+                                },
+                                markers: {
+                                    size: 3,
+                                },
+                                series: [{
+                                    name: 'Files',
+                                    data: {{ main_graph.value }}
+                                }],
+                                xaxis: {
+                                    categories: {{ main_graph.period|safe }},
+                                    labels: {
+                                            rotateAlways: false,
+                                            rotate: -90,
+                                    },
+                                },
+                            }
+                            var chart = new ApexCharts(document.querySelector(".main-graph"), options);
+                            chart.render();
+                        </script>
+                    </div>
+                </div>
+                <div class="detail">
+                    <div class="detail__block file-types">
+                        <h3>Files by types</h3>
+                        <div class="file-types__graph graph-background">
+                            <script>
+                                var options = {
+                                    chart: {
+                                        type: 'bar',
+                                        horizontal: true,
+                                    },
+                                    dataLabels: {
+                                    enabled: true,
+                                    textAnchor: 'top',
+                                    style: {
+                                        fontSize: '12px',
+                                        fontWeight: 'bold',
+                                        colors: ['black'],
+                                        },
+                                    },
+                                    series: [{
+                                        name: 'Files',
+                                        data: {{ filetypes.value }}
+                                    }],
+                                    xaxis: {
+                                        categories: {{ filetypes.types|safe }}
+                                    },
+                                    plotOptions: {
+                                        bar: {
+                                            horizontal: true
+                                        }
+                                    }
+                                }
+                                var chart = new ApexCharts(document.querySelector(".file-types__graph"), options);
+
+                                chart.render();
+
+                            </script>
+                        </div>
+                    </div>
+                    <div class="detail__block top">
+                        <h3>Top users</h3>
+                        <div class="top__list graph-background">
+                            <div class="div-table">
+                                <div class="table-row table-row__header">
+                                    <div class="table-row__name">User</div>
+                                    <div class="table-row__files">Files</div>
+                                    <div class="table-row__downloads">Downloads</div>
+                                </div>
+                                {% for row in top_users %}
+                                    <div class="table-row">
+                                        <div class="table-col table-row__name">{{ row.name }}</div>
+                                        <div class="table-col table-row__files">{{ row.files }}</div>
+                                        <div class="table-col table-row__downloads">{{ row.downloads }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <noindex class="download-dataframe">
+                <a href="https://disk.yandex.ru/d/_iMUiKk1cM-Rcw" rel="nofollow" class="download-dataframe__button">Download dataframe</a>
+            </noindex>
+{% endblock %}
