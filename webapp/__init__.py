@@ -11,7 +11,7 @@ db = SQLAlchemy()
 
 def create_app():
     # Define the WSGI application object
-    app = Flask(__name__, static_folder='static', static_url_path='')
+    app = Flask(__name__)
 
     # Configurations
     if os.environ['FLASK_ENV'] == 'development':

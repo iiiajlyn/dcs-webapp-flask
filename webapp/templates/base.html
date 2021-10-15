@@ -33,7 +33,11 @@
                         <p class="menu__item__text">General</p>
                         <p class="control__menu">+</p>
                         <ul class="submenu">
-                            <a href="{{ url_for('webapp.index') }}" class="menu__link">
+                                {% if request.path != url_for('webapp.index') %}
+                                    <a href="{{ url_for('webapp.index') }}" class="menu__link">
+                                {% else %}
+                                    <a href="#" class="menu__link">
+                                {% endif %}
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename='img/icons/dcs-2.ico') }}" alt="common dashboard icon" class="tech__icon">
                                     <p class="submenu__subitem__text">Common Dashboard</p>
@@ -49,12 +53,12 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Jet %}
-                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
-                                <li class="submenu__subitem submenu__font">
-                                    <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
-                                    <p class="submenu__subitem__text">{{ subitem.text }}</p>
-                                </li>
-                            </a>
+                                    <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
+                                        <li class="submenu__subitem submenu__font">
+                                            <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
+                                            <p class="submenu__subitem__text">{{ subitem.text }}</p>
+                                        </li>
+                                </a>
                             {% endfor %}
                         </ul>
                     </div>
@@ -65,7 +69,7 @@
                         <p class="control__menu">+</p>
                         <ul class="submenu">
                             {% for subitem in menu.Helicopter %}
-                            <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
+                                <a href="{{ url_for('webapp.stats', slug=subitem.url) }}" class="menu__link">
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename=subitem.img) }}" alt="{{ subitem.text }} icon" class="tech__icon">
                                     <p class="submenu__subitem__text">{{ subitem.text }}</p>
@@ -193,6 +197,15 @@
             {% block content %}
             {% endblock %}
             <footer>
+                <div class="contacts">
+                    <p class="contacts__p">Contact me:</p>
+                    <noindex class="contacts__link">
+                    <a href="https://forums.eagle.ru/profile/59958-ma5ta/" target="_blank">DCS Forum</a>
+                    </noindex>
+                    <noindex class="contacts__link">
+                        Ma5ta#7750(Discord)
+                    </noindex>
+                </div>
                 <div class="copyright">
                     <script>
                         let year = new Date;
@@ -201,7 +214,9 @@
                 </div>
                 <div class="metrika">
                     <!-- Yandex.Metrika informer -->
-                    <a href="https://metrika.yandex.ru/stat/?id=23133346&amp;from=informer" target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/23133346/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="23133346" data-lang="ru" /></a>
+                    <a href="https://metrika.yandex.ru/stat/?id=23133346&amp;from=informer" target="_blank" rel="nofollow">
+                        <img src="https://informer.yandex.ru/informer/23133346/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="23133346" data-lang="en" />
+                    </a>
                     <!-- /Yandex.Metrika informer -->
                     <!-- Yandex.Metrika counter -->
                     <script type="text/javascript">
@@ -224,7 +239,8 @@
                         });
                     </script>
                     <noscript>
-                        <div><img src="https://mc.yandex.ru/watch/23133346" style="position:absolute; left:-9999px;" alt="" />
+                        <div>
+                            <img src="https://mc.yandex.ru/watch/23133346" style="position:absolute; left:-9999px;" alt="" />
                         </div>
                     </noscript>
                     <!-- /Yandex.Metrika counter -->

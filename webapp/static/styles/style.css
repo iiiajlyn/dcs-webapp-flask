@@ -614,12 +614,35 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 75px;
+    height: 100px;
     background-color: var(--menu-color);
 }
 
+.contacts {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 5px 0px 5px 0px;
+}
+
+.contacts__p {
+    margin: 0px 0px;
+}
+
+.contacts__link {
+    margin-left: 10px;
+}
+
+.contacts__link a {
+    text-decoration: none;
+    color: black;
+}
+
+.contacts__link a:hover {
+    border-bottom: 2px solid var(--dcs-yellow);
+}
+
 .copyright {
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 
