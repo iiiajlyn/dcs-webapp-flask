@@ -679,8 +679,12 @@ footer {
         justify-content: center;
     }
 
+    .total {
+        margin-right: 0px;
+    }
+
     .main-graph {
-        margin-right: 10px;
+        margin-right: 0px;
     }
     .detail {
         justify-content: center;

@@ -40,7 +40,11 @@
                             {% endif %}
                                 <li class="submenu__subitem submenu__font">
                                     <img src="{{ url_for('static', filename='img/icons/dcs-2.ico') }}" alt="common dashboard icon" class="tech__icon">
+                            {% if request.path != url_for('webapp.index') %}
+                                    <p class="submenu__subitem__text">Common Dashboard</p>
+                            {% else %}
                                     <p class="submenu__subitem__text active-menu">Common Dashboard</p>
+                            {% endif %}
                                 </li>
                             </a>
                         </ul>
