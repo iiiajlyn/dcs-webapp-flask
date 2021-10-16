@@ -7,11 +7,9 @@ from webapp.lib.slug_unit_dict import slug_item
 from webapp.lib.get_filetypes_sql import get_filetypes_script
 from webapp.lib.get_top_users_sql import get_top_users_script
 from webapp.lib.get_files_by_date_sql import get_files_by_date_script
-from webapp.lib.get_popular_units_sql import get_popular_units_script
-from webapp.lib.get_last_modified_sql import last_modified_script
+from webapp.lib.get_last_modified_sql import get_last_modified_script
 # TODO: Delete custom scripts
 from webapp.lib.custom.get_filetypes_sql import get_filetypes_main
-from webapp.lib.custom.get_files_by_date_sql import get_files_by_date_main
 from webapp.lib.custom.get_number_of_files_by_units_sql import get_number_of_files_by_units_script
 from webapp.lib.custom.get_top_users_sql import get_top_users_main
 from webapp.models import FilesStats, Posts, Units, UnitTypes
@@ -33,7 +31,7 @@ def page_background(slug):
 
 def get_sitemap():
     spam = []
-    units = db.session.execute(last_modified_script).all()
+    units = db.session.execute(get_last_modified_script).all()
     posts = Posts.query.order_by(db.asc(Posts.post_date)
                                  ).add_columns(Posts.slug, Posts.post_date).all()
     pages = get_sitemap_unit_page(units, posts)
@@ -62,13 +60,9 @@ class StatsController:
 
     def get_unit_id(self):
         if self.unit_title != 'Common':
-            return Units.query.where(
+            unit_id = Units.query.where(
                 Units.unit_name == self.unit_title).first_or_404().id
-        ids = Units.query.add_columns(Units.id).all()
-        spam = []
-        for _id in ids:
-            spam.append(_id.id)
-        return spam
+            return unit_id
 
     def get_main_graph_period(self):
         '''Method return date period for main graph.'''
@@ -118,7 +112,6 @@ class StatsController:
             last_upload_date = db.session.query(db.func.max(
                 FilesStats.publishing_date)).first_or_404()[0]
 
-        unit_popularity = ''
 
         if self.slug:
             main_graph = db.session.execute(
@@ -126,10 +119,6 @@ class StatsController:
                 {'_units': self.unit_id,
                 '_date_part': self.main_graph_period}
             ).all()
-
-            unit_popularity = db.session.execute(
-                get_popular_units_script).all()
-            unit_popularity = self.unit_stats.get_popular_units(unit_popularity)
         else:
             main_graph = db.session.execute(
                 get_number_of_files_by_units_script).all()
@@ -147,7 +136,6 @@ class StatsController:
             'total_users': total_users,
             'last_upload_date': last_upload_date,
             'main_graph': {**main_graph, 'graph_type': graph_type},
-            'release_date': unit_popularity
         }
         return result
 
@@ -168,7 +156,7 @@ class StatsController:
             if self.slug:
                 result = db.session.execute(
                     get_top_users_script,
-                    {'_units': self.unit_title})
+                    {'_units': self.unit_id})
             else:
                 result = db.session.execute(get_top_users_main)
         except KeyError:
