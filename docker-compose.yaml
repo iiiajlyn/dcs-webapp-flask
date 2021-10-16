@@ -15,6 +15,7 @@ services:
 
   nginx:
     build: ./nginx
+    container_name: flask_nginx
     expose:
       - 5000
     depends_on:
