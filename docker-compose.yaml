@@ -6,8 +6,8 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
-    ports:
-      - 5000:5000
+    expose:
+      - 5000
     command: gunicorn --bind 0.0.0.0:5000 run:main()
     env_file:
       - ./env.dev
@@ -16,7 +16,7 @@ services:
   nginx:
     build: ./nginx
     container_name: flask_nginx
-    expose:
-      - 5000
+    ports:
+      - 80:5000
     depends_on:
       - flask
