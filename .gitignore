@@ -133,3 +133,5 @@ activate
 dump/
 migrations/
 uploads/
+files/
+
