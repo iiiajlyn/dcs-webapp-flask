@@ -26,7 +26,17 @@ class UnitStats:
                 else:
                     eggs['period'].append(f'{int(row[PERIOD])}/{int(row[YEAR])}')
             except (IndexError, ValueError):
-                eggs['period'].append(row[PERIOD].split()[0])
+                unit = row[PERIOD]
+                units_wo_spaces = {
+                    'Bf 109 K-4 Kurfurst': 'Bf 109K',
+                    'Christen Eagle II': 'C.Eagle',
+                    'Fw 190 A-8 Anton': 'Fw 190A8',
+                    'Fw 190 D-9 Dora': 'Fw 190D9',
+                }
+                if unit not in {x for x in units_wo_spaces.keys()}:
+                    eggs['period'].append(unit.split()[0])
+                else:
+                    eggs['period'].append(units_wo_spaces[unit])
                 eggs['downloads'].append(int(row[DOWNLOADS - 1]))
                 eggs['files'].append(int(row[FILES - 1]))
             else:
