@@ -26,7 +26,7 @@ class UnitStats:
                 else:
                     eggs['period'].append(f'{int(row[PERIOD])}/{int(row[YEAR])}')
             except (IndexError, ValueError):
-                eggs['period'].append(row[PERIOD])
+                eggs['period'].append(row[PERIOD].split()[0])
                 eggs['downloads'].append(int(row[DOWNLOADS - 1]))
                 eggs['files'].append(int(row[FILES - 1]))
             else:
