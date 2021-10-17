@@ -50,9 +50,14 @@ class StatsController:
         self.unit_stats = UnitStats(self.unit_id)
 
     def get_unit_title(self):
+        unit_title = 'Common'
         if not self.slug:
-            return 'Common'
-        return slug_item[self.slug]
+            return unit_title
+        try:
+            unit_title = slug_item[self.slug]
+        except KeyError as err:
+            self.slug = None
+        return unit_title
 
     def get_unit_description(self):
         if not self.slug:
@@ -67,7 +72,7 @@ class StatsController:
 
     def get_main_graph_period(self):
         '''Method return date period for main graph.'''
-        if self.slug:
+        if self.slug and self.unit_title != 'Common':
             max_date = db.session.query(db.func.max(
                 FilesStats.publishing_date)).where(
                     FilesStats.unit_id == self.unit_id).first_or_404()[0]
@@ -80,6 +85,8 @@ class StatsController:
         return 'YEAR'
 
     def get_header(self):
+        if self.unit_title == 'Common':
+            return 'User activity for all time across all units'
         if self.main_graph_period == 'YEAR':
             return 'User activity Year-over-Year'
         return 'User activity Month-over-Month'
