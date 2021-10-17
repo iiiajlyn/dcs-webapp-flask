@@ -10,20 +10,28 @@ class UnitStats:
         return get_thousands(result[0])
 
     def get_main_graph_stats(self, result, years):
+        PERIOD = 0
+        YEAR = 1
+        DOWNLOADS = 2
+        FILES = 3
         eggs = {
             'period': [],
-            'value': []}
+            'downloads': [],
+            'files': [],
+        }
         for row in result:
             try:
                 if years == 'YEAR':
-                    eggs['period'].append(int(row[0]))
+                    eggs['period'].append(int(row[PERIOD]))
                 else:
-                    eggs['period'].append(f'{int(row[0])}/{int(row[1])}')
-            except ValueError:
-                eggs['period'].append(row[0])
-                eggs['value'].append(int(row[1]))
+                    eggs['period'].append(f'{int(row[PERIOD])}/{int(row[YEAR])}')
+            except (IndexError, ValueError):
+                eggs['period'].append(row[PERIOD])
+                eggs['downloads'].append(int(row[DOWNLOADS - 1]))
+                eggs['files'].append(int(row[FILES - 1]))
             else:
-                eggs['value'].append(int(row[2]))
+                eggs['downloads'].append(int(row[DOWNLOADS]))
+                eggs['files'].append(int(row[FILES]))
         return eggs
 
     def get_popular_units(self, pop_units):

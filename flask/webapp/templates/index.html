@@ -7,6 +7,7 @@
 
 {% block content %}
             <div class="graphs">
+                <p class="data-updated"> Data updated {{ data_updated }}</p>
                 <totals>
                     <div class="total total_files">
                         <total__name>Total files</total__name>
@@ -25,13 +26,13 @@
                         <total__indicator>{{ last_upload_date }}</total__indicator>
                     </div>
                 </totals>
-                <h2>Number of users files</h2>
+                <h2>{{ header }}</h2>
                 <div class="main-graph graph-background">
                     <div class="apex-script">
                         <script>
                             var options = {
                                 chart: {
-                                    type: '{{ main_graph.graph_type }}',
+                                    type: 'line',
                                 },
                                 dataLabels: {
                                 enabled: false,
@@ -43,9 +44,15 @@
                                     size: 3,
                                 },
                                 series: [{
+                                    type: 'line',
+                                    name: 'Files',
+                                    data: {{ main_graph.files }}
+                                },{
+                                    type: 'column',
                                     name: 'Total files downloads',
-                                    data: {{ main_graph.value }}
-                                }],
+                                    data: {{ main_graph.downloads }}
+                                }
+                                ],
                                 xaxis: {
                                     categories: {{ main_graph.period|safe }},
                                     labels: {
@@ -53,7 +60,22 @@
                                             rotate: -90,
                                     },
                                 },
-                            }
+                                yaxis: [{
+                                        title: {
+                                            text: 'Files'
+                                        },
+                                        }, {
+                                        opposite: true,
+                                        title: {
+                                            text: 'Total files downloads',
+                                        }
+                                        }],
+                                legend: {
+                                    show: {{ show_legend|default('true') }}
+
+                                },
+                            };
+
                             var chart = new ApexCharts(document.querySelector(".main-graph"), options);
                             chart.render();
                         </script>

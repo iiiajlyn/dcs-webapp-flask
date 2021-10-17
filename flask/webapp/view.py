@@ -6,6 +6,7 @@ from webapp.controllers import get_sitemap, menu_dict, page_background, StatsCon
 
 
 webapp = Blueprint('webapp', __name__, url_prefix='/')
+TODAY = date.today().isoformat()
 
 @webapp.route('/')
 def index(slug=None):
@@ -13,6 +14,8 @@ def index(slug=None):
     params ={
         'menu': menu_dict(),
         'bkg': page_background(slug),
+        'data_updated': TODAY,
+        'show_legend': 'false'
         }
     params = dict(params, **unit_stats())
     if params['top_users'] == 404:
@@ -25,6 +28,8 @@ def stats(slug):
     params ={
         'menu': menu_dict(),
         'bkg': page_background(slug),
+        'data_updated': TODAY,
+        'series_name': 'Files',
         }
     params = dict(params, **unit_stats())
     if params['top_users'] == 404:
@@ -39,7 +44,7 @@ def sitemap():
         'sitemap_template.xml',
         pages=pages,
         base_url=base_url,
-        date_now = date.today().isoformat())
+        date_now = TODAY)
 
 @webapp.route('/robots.txt')
 @webapp.route('/googledebc99b136ef1c75.html')

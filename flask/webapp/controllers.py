@@ -46,6 +46,7 @@ class StatsController:
         self.description = self.get_unit_description()
         self.unit_id  = self.get_unit_id()
         self.main_graph_period = self.get_main_graph_period()
+        self.header = self.get_header()
         self.unit_stats = UnitStats(self.unit_id)
 
     def get_unit_title(self):
@@ -77,6 +78,11 @@ class StatsController:
             if delta_date < dt.timedelta(days=700):
                 return 'MONTH'
         return 'YEAR'
+
+    def get_header(self):
+        if self.main_graph_period == 'YEAR':
+            return 'User activity Year-over-Year'
+        return 'User activity Month-over-Month'
 
     def unit_statistics(self):
         '''Method return unit statistics.'''
@@ -127,15 +133,15 @@ class StatsController:
             main_graph,
             self.main_graph_period
             )
-        graph_type = 'line' if self.slug else 'bar'
 
         result = {
             'unit_title': self.unit_title,
+            'header': self.header,
             'total_files': total_files,
             'total_downloads': total_downloads,
             'total_users': total_users,
             'last_upload_date': last_upload_date,
-            'main_graph': {**main_graph, 'graph_type': graph_type},
+            'main_graph': {**main_graph},
         }
         return result
 

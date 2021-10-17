@@ -1,6 +1,7 @@
 get_number_of_files_by_units_script = '''SELECT
     u.unit_name,
-    sum(fs2.downloaded) AS sum_downloaded
+    sum(fs2.downloaded) AS sum_downloaded,
+    count(fs2.file_id) AS count_files
 FROM
     dw.units AS u
 INNER JOIN
