@@ -4,7 +4,7 @@ domains=("ma5ta.ru www.ma5ta.ru")
 email="michelkoyangkuleshov@gmail.com" # Adding a valid address is strongly recommended
 staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
 
-data_path="./data/certbot"
+data_path="./certbot"
 rsa_key_size=4096
 regex="([^www.].+)"
 

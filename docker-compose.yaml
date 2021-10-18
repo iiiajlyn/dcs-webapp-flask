@@ -6,11 +6,11 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
-      - ./certbot/conf:/app/flask/
-
+      - ./certbot/conf/live/ma5ta.ru/fullchain.pem:/app/cert.pem
+      - ./certbot/conf/live/ma5ta.ru/privkey.pem:/app/key.pem
     expose:
       - 5000
-    command: gunicorn --certfile cert.pem --keyfile.pem --bind 0.0.0.0:5000 run:main()
+    command: gunicorn --certfile cert.pem --keyfile key.pem --bind 0.0.0.0:5000 run:main()
     env_file:
       - ./env.dev
     restart: on-failure
