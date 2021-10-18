@@ -6,11 +6,11 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
-      - ./data/certbot/conf:/app/flask/
+      - ./certbot/conf:/app/flask/
 
     expose:
       - 5000
-    command: gunicorn --bind 0.0.0.0:5000 run:main()
+    command: gunicorn --certfile cert.pem --keyfile.pem --bind 0.0.0.0:5000 run:main()
     env_file:
       - ./env.dev
     restart: on-failure
@@ -19,8 +19,8 @@ services:
     build: ./nginx
     container_name: flask_nginx
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
       - 80:80
       - 443:443
@@ -33,8 +33,8 @@ services:
     container_name: certbot
     image: certbot/certbot
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     restart: unless-stopped
     entrypoint:  "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
