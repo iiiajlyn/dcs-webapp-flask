@@ -12,4 +12,4 @@
     <changefreq>daily</changefreq>
   </url>
   {%- endfor -%}
-</Urlset>
+</urlset>
