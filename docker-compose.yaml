@@ -20,7 +20,7 @@ services:
     build: ./nginx
     container_name: flask_nginx
     volumes:
-      - ./certbot/conf/live/ma5ta.ru-0004:/etc/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     ports:
       - 80:80
