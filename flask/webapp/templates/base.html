@@ -16,7 +16,7 @@
     <link rel="mask-icon" href="{{ url_for('static', filename='img/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#333333">
     <meta name="theme-color" content="#333333">
-    <link rel="canonical" href="{{ url_for(request.endpoint, **request.view_args) }}"/>
+    <link rel="canonical" href="https://ma5ta.ru{{ url_for(request.endpoint, **request.view_args) }}"/>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <title>{% block title %}{% endblock %} - Ma5ta.ru</title>
 </head>
