@@ -6,12 +6,12 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
-      - ./certbot/conf/live/ma5ta.ru-0004:/app/cert
-      - ./flask/log/:/var/log/dcs-webapp/
+      - ./certbot/conf:/app/cert
+      - ./flask/logs/gunicorn:/var/log/dcs-webapp
     expose:
       - 5000
-    command: gunicorn --bind 0.0.0.0:5000 --access-logfile /var/log/dcs-webapp/gunicorn-access.log --error-logfile /var/log/dcs-webapp/gunicorn-error.log run:main()
-    # command: gunicorn --bind 0.0.0.0:5000 run:main()
+        # command: gunicorn --bind 0.0.0.0:5000 --access-logfile /var/log/dcs-webapp/gunicorn-access.log --error-logfile /var/log/dcs-webapp/gunicorn-error.log run:main()
+    command: gunicorn --bind 0.0.0.0:5000 run:main()
     env_file:
       - ./env.dev
     restart: on-failure
