@@ -6,7 +6,7 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
-      - ./certbot/conf/live/ma5ta.ru-0004:/app/cert
+      - ./certbot/conf:/app/cert
     expose:
       - 5000
     command: gunicorn --bind 0.0.0.0:5000 --access-logfile /var/log/dcs-webapp/gunicorn-access.log --error-logfile /var/log/dcs-webapp/gunicorn-error.log run:main()
@@ -18,7 +18,7 @@ services:
     build: ./nginx
     container_name: flask_nginx
     volumes:
-      - ./certbot/conf/live/ma5ta.ru-0004:/etc/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     ports:
       - 80:80
