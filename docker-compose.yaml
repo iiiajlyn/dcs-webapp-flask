@@ -6,8 +6,11 @@ services:
     container_name: flask_cont
     volumes:
       - ./flask/webapp/static/:/app/webapp/static/
+      - ./certbot/conf:/app/cert
+      - ./flask/logs/gunicorn:/var/log/dcs-webapp
     expose:
       - 5000
+        # command: gunicorn --bind 0.0.0.0:5000 --access-logfile /var/log/dcs-webapp/gunicorn-access.log --error-logfile /var/log/dcs-webapp/gunicorn-error.log run:main()
     command: gunicorn --bind 0.0.0.0:5000 run:main()
     env_file:
       - ./env.dev
@@ -16,7 +19,23 @@ services:
   nginx:
     build: ./nginx
     container_name: flask_nginx
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - flask
+    restart: unless-stopped
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    restart: unless-stopped
+    entrypoint:  "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
