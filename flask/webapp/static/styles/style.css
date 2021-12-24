@@ -9,7 +9,7 @@
 body {
     font-family: 'Lato', 'Open Sans', 'Raleway', 'Roboto', sans-serif;
     display: flex;
-    background-size: cover;
+    background-size: cover !important;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.9) 100%), url('/static/img/bkg/default-bkg.jpg');
 }
 
@@ -364,7 +364,7 @@ content {
     overflow: hidden;
     box-shadow: 9px 3px 15px #33333357;
     background-color: #cdcdcd85;
-    background-image: none !important;
+    /* background-image: none !important; */
 }
 
 .background {
