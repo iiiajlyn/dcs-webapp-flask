@@ -274,10 +274,10 @@ sidebar__header {
     transform: none;
 }
 
-// Remy function
+/* // Remy function
 @function remy($value) {
     @return ($value / 16px) * 1rem;
-}
+} */
 
 /**
  * Styling top level items
