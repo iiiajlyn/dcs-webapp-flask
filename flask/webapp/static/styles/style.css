@@ -9,7 +9,7 @@
 body {
     font-family: 'Lato', 'Open Sans', 'Raleway', 'Roboto', sans-serif;
     display: flex;
-    background-size: cover;
+    background-size: cover !important;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.9) 100%), url('/static/img/bkg/default-bkg.jpg');
 }
 
@@ -210,9 +210,7 @@ sidebar__header {
     left: -5px;
     cursor: pointer;
     opacity: 0;
-    /* hide this */
     z-index: 2;
-    /* and place it over the hamburger */
     -webkit-touch-callout: none;
 }
 
@@ -229,9 +227,9 @@ sidebar__header {
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-        opacity 0.55s ease;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    background: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    opacity: 0.55s ease;
 }
 
 .burger:first-child {
@@ -321,14 +319,6 @@ sidebar__header {
 }
 
 /**
- * Styling first level lists items
- */
-.group-list a,
-.group-list label {
-    /* padding-left: 2rem; */
-}
-
-/**
  * Hide nested lists
  */
 .group-list,
@@ -363,8 +353,9 @@ content {
     flex-direction: column;
     overflow: hidden;
     box-shadow: 9px 3px 15px #33333357;
-    background-color: #cdcdcd85;
-    background-image: none !important;
+    width: 100%;
+    position: relative;
+    padding-bottom: 100px;
 }
 
 .background {
@@ -470,8 +461,6 @@ h2 {
     box-shadow: 0 0 5px rgba(12, 6, 14, 0.1);
     background-color: rgba(255, 255, 255, 0.5);
 }
-
-.main-graph {}
 
 .apexcharts-toolbar {
     padding: 10px !important;
@@ -629,6 +618,9 @@ footer {
     align-items: center;
     height: 100px;
     background-color: var(--menu-color);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .contacts {
