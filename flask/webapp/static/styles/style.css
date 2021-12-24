@@ -109,7 +109,6 @@ sidebar__header {
     display: flex;
 }
 
-
 .menu__item__text {
     margin: 0px auto auto 30px;
     line-height: 40px;
@@ -274,7 +273,6 @@ sidebar__header {
 .menuToggle input:checked~ul {
     transform: none;
 }
-
 
 // Remy function
 @function remy($value) {
@@ -663,7 +661,6 @@ footer {
 .copyright {
     margin: 5px auto;
 }
-
 
 @media only screen and (max-width: 1024px) {
     sidebar {
